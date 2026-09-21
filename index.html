@@ -34,6 +34,153 @@
       align-items: center;
       color: var(--text-main);
       padding: 12px;
+      overflow: hidden;
+    }
+
+    /* ================================================= */
+    /* PINTU MASUK INTERAKTIF (DOOR OVERLAY)             */
+    /* ================================================= */
+    .door-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1200px;
+      overflow: hidden;
+    }
+
+    .door-panel {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      background: linear-gradient(135deg, #fcedf2, #eedcf5);
+      box-shadow: inset 0 0 40px rgba(186, 140, 175, 0.3);
+      transition: transform 1.1s cubic-bezier(0.77, 0, 0.175, 1);
+      z-index: 10;
+    }
+
+    .door-left {
+      left: 0;
+      transform-origin: left center;
+      border-right: 3px solid #ffffff;
+    }
+
+    .door-right {
+      right: 0;
+      transform-origin: right center;
+      border-left: 3px solid #ffffff;
+    }
+
+    .door-overlay.open .door-left {
+      transform: rotateY(-110deg);
+    }
+
+    .door-overlay.open .door-right {
+      transform: rotateY(110deg);
+    }
+
+    .door-content {
+      position: relative;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(8px);
+      padding: 28px 24px;
+      border-radius: 28px;
+      border: 3px solid #ffffff;
+      box-shadow: 0 15px 40px rgba(186, 140, 175, 0.35);
+      text-align: center;
+      max-width: 380px;
+      width: 90%;
+      transition: all 0.5s ease;
+    }
+
+    .door-overlay.open .door-content {
+      opacity: 0;
+      transform: scale(0.85);
+      pointer-events: none;
+    }
+
+    .door-badge {
+      font-family: 'Caveat', cursive;
+      font-size: 1.4rem;
+      color: var(--pink-accent);
+      background: #fff0f3;
+      padding: 3px 16px;
+      border-radius: 20px;
+      border: 1px dashed var(--pink-accent);
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+
+    .door-title {
+      font-family: 'Caveat', cursive;
+      font-size: 2.1rem;
+      color: #5c3749;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .door-sub {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #8e559e;
+      margin-bottom: 18px;
+    }
+
+    .open-door-btn {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #ffffff;
+      background: linear-gradient(135deg, #ff758f, #ff5277);
+      border: none;
+      padding: 13px 32px;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(255, 82, 119, 0.45);
+      transition: all 0.25s ease;
+      animation: pulseBtn 1.8s infinite alternate;
+    }
+
+    .open-door-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+    }
+
+    @keyframes pulseBtn {
+      0% { transform: scale(1); box-shadow: 0 4px 15px rgba(255, 82, 119, 0.35); }
+      100% { transform: scale(1.05); box-shadow: 0 8px 25px rgba(255, 82, 119, 0.6); }
+    }
+
+    /* Floating Music Button */
+    .music-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid var(--pink-accent);
+      color: var(--pink-accent);
+      box-shadow: 0 4px 15px rgba(255, 117, 143, 0.35);
+      cursor: pointer;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      transition: all 0.3s ease;
+    }
+
+    .music-btn:hover { transform: scale(1.1); }
+    .music-btn.playing { animation: spinDisc 3.5s linear infinite; }
+
+    @keyframes spinDisc {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
     .storybook-container {
@@ -292,9 +439,7 @@
       color: #634751;
     }
 
-    /* ================================================= */
-    /* SCENE 11: SCRATCH CARD & KETERANGAN PROFESI       */
-    /* ================================================= */
+    /* SCENE 11: SCRATCH CARD & PROFESI */
     .scratch-container {
       position: relative;
       width: 100%;
@@ -646,6 +791,36 @@
 </head>
 <body>
 
+  <!-- PINTU GERBANG UTAMA (OPENING DOOR OVERLAY) -->
+  <div class="door-overlay" id="doorOverlay">
+    <div class="door-panel door-left"></div>
+    <div class="door-panel door-right"></div>
+    
+    <div class="door-content" id="doorContent">
+      <span class="door-badge">Special Story</span>
+      <h1 class="door-title">Siap-siap masuk ke petualangan Yayang, Riana, & Dea!</h1>
+      <p class="door-sub"></p>
+      
+      <button class="open-door-btn" id="openDoorBtn" onclick="openMagicDoor()">
+        Open
+      </button>
+
+      <small style="color: #9c8089; font-weight:600; margin-top: 14px; display:block;">
+        Pssttt, nyalakan suara HPnya yaa~
+      </small>
+    </div>
+  </div>
+
+  <!-- Audio Element -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="abba-dancing-queen_abba-dancing-queen.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Tombol Musik Melayang -->
+  <button id="musicToggle" class="music-btn" title="Nyalakan / Matikan Musik">
+    🎵
+  </button>
+
   <div class="storybook-container">
     <div class="washi-tape"></div>
 
@@ -658,7 +833,7 @@
 
       <!-- SCENE 01 -->
       <div class="scene active" data-chapter="Before We Met">
-        <h2 class="caption-title">Before We Knew Each Other 🎒</h2>
+        <h2 class="caption-title">Before We Knew Each Other</h2>
         <p class="story-text">Semuanya ternyata sudah dimulai jauh sebelum kita saling kenal.</p>
         
         <div class="avatars-row">
@@ -682,7 +857,7 @@
         <div class="visual-box" style="margin-top: 8px;">
           <p style="font-size: 0.95rem; font-weight: 700; color: #8e559e;">
             Sampai akhirnya dipertemukan di satu kelas:<br>
-            🏫 SMAN 1 Geger — Kelas MIPA 7 ✨
+            SMAN 1 Geger — MIPA 7
           </p>
         </div>
       </div>
@@ -772,7 +947,7 @@
 
           <p style="font-size: 0.92rem; font-weight:700; color:#5c474d; line-height: 1.5;">
             Riana sempat gap year setahun...<br>
-            Tapi setahun kemudian nyusul ke Malang & diterima di <span style="color:#8e559e;">UB Matematika Murni 📐✨</span>
+            Tapi setahun kemudian nyusul ke Malang & diterima di <span style="color:#8e559e;">UB Matematika Murni 📐</span>
           </p>
           <small style="color:#ff758f; font-weight:700; display:block; margin-top: 4px;">
             Reuni bertiga pun resmi dimulai lagi!
@@ -876,7 +1051,7 @@
           </p>
 
           <div style="font-weight: 700; color: #2a9d8f; font-size: 1.05rem; margin-top: 6px;">
-            Sampai akhirnya... KETEMU! 🐾✨
+            Sampai akhirnya... KETEMU! 🐾
           </div>
           <small style="color:#6c757d;">(Setelah itu kami rawat Mocca diam-diam 🤫)</small>
         </div>
@@ -886,7 +1061,7 @@
       <div class="scene" data-chapter="Game: Ingatan Kos Ungu 🃏">
         <h2 class="caption-title" style="margin-bottom: 2px;">🃏 UJI INGATAN KOS UNGU!</h2>
         <p class="story-text" style="font-size: 0.86rem; margin-bottom: 4px;">
-          Balik kartu di bawah dan <b>temukan 3 pasang foto yang cocok</b> untuk menyelamatkan kenangan Kos Ungu! ✨
+          Balik kartu di bawah dan <b>temukan 3 pasang foto yang cocok</b> untuk menyelamatkan kenangan Kos Ungu! 
         </p>
 
         <div style="font-weight:700; font-size:0.9rem; color:#8e559e; margin-bottom: 4px;">
@@ -915,20 +1090,18 @@
         </div>
       </div>
 
-      <!-- SCENE 11: OUR OWN WAYS (DENGAN KETERANGAN PROFESI 3 KOLOM) -->
+      <!-- SCENE 11: OUR OWN WAYS -->
       <div class="scene" data-chapter="Our Own Ways 🌏">
         <h2 class="caption-title">Our Own Ways 🌏</h2>
         <p class="story-text" style="margin-bottom: 4px;">
           Waktu membawa kita ke 3 kota dan jalan hidup yang berbeda:
         </p>
 
-        <!-- Kotak Scratch Card Eraser -->
         <div class="scratch-container" id="scratchContainer">
           <img src="poto/profesi.png" class="scratch-under-img" alt="Foto Profesi Kita">
           <canvas id="scratchCanvas" class="scratch-canvas"></canvas>
         </div>
 
-        <!-- 3 Label Keterangan Sesuai Urutan Foto -->
         <div class="profesi-grid">
           <div class="profesi-item">
             <b>👩🏻‍💻 Riana</b>
@@ -977,7 +1150,7 @@
       <div class="scene" data-chapter="Game: Bridal Makeover 👰‍♀️">
         <h2 class="caption-title" style="margin-bottom: 2px;">👰‍♀️ BRIDAL MAKEOVER!</h2>
         <p class="story-text" style="font-size: 0.86rem; margin-bottom: 4px;">
-          Bantu pasang perlengkapan pengantin ke Kak Yayang berurutan dari kiri ke kanan! ✨
+          Bantu pasang perlengkapan pengantin ke Kak Yayang berurutan dari kiri ke kanan! 
         </p>
 
         <div class="makeover-preview-box">
@@ -1090,7 +1263,7 @@
 
     <div class="nav-bar">
       <button class="btn btn-prev" id="btnPrev" disabled>← Balik</button>
-      <button class="btn btn-next" id="btnNext">Lanjut ✨</button>
+      <button class="btn btn-next" id="btnNext">Lanjut </button>
     </div>
   </div>
 
@@ -1102,6 +1275,54 @@
     const pageCounter = document.getElementById('pageCounter');
 
     let currentScene = 0;
+
+    /* ================================================= */
+    /* OPENING DOOR & AUDIO LOGIC                        */
+    /* ================================================= */
+    const bgMusic = document.getElementById('bgMusic');
+    const musicToggle = document.getElementById('musicToggle');
+    let isMusicPlaying = false;
+
+    function startMusic() {
+      bgMusic.play().then(() => {
+        isMusicPlaying = true;
+        musicToggle.classList.add('playing');
+        musicToggle.innerText = '🎵';
+      }).catch(() => {});
+    }
+
+    function toggleMusic() {
+      if (isMusicPlaying) {
+        bgMusic.pause();
+        isMusicPlaying = false;
+        musicToggle.classList.remove('playing');
+        musicToggle.innerText = '🔇';
+      } else {
+        startMusic();
+      }
+    }
+
+    musicToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMusic();
+    });
+
+    // FUNGSI MEMBUKA PINTU MAGIS
+    function openMagicDoor() {
+      const doorOverlay = document.getElementById('doorOverlay');
+      doorOverlay.classList.add('open');
+
+      // Nyalakan lagu langsung!
+      startMusic();
+
+      // Ledakan konfeti sambutan
+      celebrateConfetti();
+
+      // Hilangkan overlay pintu setelah terbuka
+      setTimeout(() => {
+        doorOverlay.style.display = 'none';
+      }, 1200);
+    }
 
     /* GAME 1: MEMORY CARDS */
     const memoryData = [
@@ -1166,7 +1387,7 @@
 
           if (matchedCount === 3) {
             btnNext.disabled = false;
-            btnNext.innerText = 'Kenangan Terselamatkan! ✨';
+            btnNext.innerText = 'Kenangan Terselamatkan! ';
             celebrateConfetti();
           }
         } else {
@@ -1200,7 +1421,7 @@
       ctx.font = 'bold 15px Quicksand, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText('✨ GOSOK / USAP DI SINI ✨', canvas.width / 2, canvas.height / 2 - 10);
+      ctx.fillText(' GOSOK / USAP DI SINI ', canvas.width / 2, canvas.height / 2 - 10);
       
       ctx.font = '12px Quicksand, sans-serif';
       ctx.fillStyle = '#d8b4e2';
@@ -1337,13 +1558,13 @@
           initMemoryGame();
         } else {
           btnNext.disabled = false;
-          btnNext.innerText = 'Lanjut ✨';
+          btnNext.innerText = 'Lanjut ';
         }
       }
       // Scene 11: Scratch Card
       else if (idx === 10) {
         btnNext.disabled = false;
-        btnNext.innerText = 'Lanjut ✨';
+        btnNext.innerText = 'Lanjut ';
         setTimeout(initScratchCard, 100);
       }
       // Scene 13: Makeover Game
@@ -1378,7 +1599,7 @@
         } else if (idx === 13) {
           btnNext.innerText = 'Antar ke Pelaminan ➔';
         } else {
-          btnNext.innerText = 'Lanjut ✨';
+          btnNext.innerText = 'Lanjut ';
         }
       }
     }
