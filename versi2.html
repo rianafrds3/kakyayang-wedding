@@ -176,9 +176,9 @@
     /* STORYBOOK COVER & SHELL */
     .storybook-container {
       width: 100%;
-      max-width: 760px;
+      max-width: 790px;
       height: 92vh;
-      max-height: 710px;
+      max-height: 720px;
       background: #ffffff;
       border-radius: 24px;
       box-shadow: 
@@ -236,7 +236,7 @@
     .scene-viewport {
       flex: 1;
       position: relative;
-      padding: 6px 28px;
+      padding: 6px 24px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -247,7 +247,7 @@
     .scene {
       position: absolute;
       inset: 0;
-      padding: 12px 34px;
+      padding: 12px 30px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -561,7 +561,7 @@
       line-height: 1.25;
     }
 
-    /* GAME: MANCING GROOM DARI 9 LUBANG */
+    /* GAME: MANCING MAS RIZKI DARI 9 LUBANG */
     .fishing-arena {
       width: 100%;
       max-width: 360px;
@@ -650,9 +650,7 @@
       transition: all 0.2s ease;
     }
 
-    /* ================================================= */
-    /* TRANSISI GROOM BERSIAP (GROOM KISS & MAKEOVER)    */
-    /* ================================================= */
+    /* TRANSISI MAS RIZKI BERSIAP */
     .groom-prep-transition {
       display: none;
       flex-direction: column;
@@ -702,7 +700,6 @@
       transition: all 0.3s ease;
     }
 
-    /* Animasi goyang-goyang centil / kiss bounce */
     .groom-bouncing-kiss {
       animation: groomKissAnim 0.75s infinite alternate ease-in-out;
     }
@@ -713,7 +710,6 @@
       100% { transform: translateY(0) rotate(8deg) scale(1); }
     }
 
-    /* Loading Bar Lucu */
     .groom-loading-box {
       display: none;
       flex-direction: column;
@@ -872,49 +868,87 @@
       padding: 10px;
     }
 
-    /* SCENE 16: AISLE WALK WITH RIANA & DEA */
+    /* ================================================= */
+    /* SCENE 16: AISLE WALK OTOMATIS & INTENSIF 36 DETIK */
+    /* ================================================= */
     .aisle-walk-box {
       width: 100%;
-      max-width: 580px;
-      margin: 8px auto;
+      max-width: 710px;
+      margin: 6px auto;
       display: flex;
       flex-direction: column;
       align-items: center;
+      position: relative;
     }
 
     .aisle-track {
       width: 100%;
-      height: 165px;
-      background: linear-gradient(180deg, #fbf7f8, #f5edf1);
+      height: 195px;
+      background: linear-gradient(180deg, #fdfbfb 0%, #f7eff3 100%);
       border: 1px solid var(--border-subtle);
-      border-radius: 20px;
+      border-radius: 24px;
       position: relative;
       overflow: hidden;
       display: flex;
       align-items: center;
-      padding: 0 16px;
-      box-shadow: inset 0 2px 10px rgba(196, 139, 159, 0.08);
+      padding: 0 20px;
+      box-shadow: inset 0 2px 14px rgba(140, 76, 100, 0.06);
     }
 
     .aisle-carpet {
       position: absolute;
       left: 15px;
       right: 15px;
-      height: 28px;
-      background: linear-gradient(90deg, rgba(196, 139, 159, 0.4), rgba(212, 175, 55, 0.35), rgba(196, 139, 159, 0.4));
-      border-radius: 14px;
+      height: 42px;
+      background: linear-gradient(90deg, rgba(212, 175, 55, 0.22), rgba(196, 139, 159, 0.35), rgba(212, 175, 55, 0.28));
+      border-radius: 21px;
       z-index: 1;
-      border: 1px dashed rgba(212, 175, 55, 0.5);
+      border: 1px dashed rgba(212, 175, 55, 0.6);
+    }
+
+    /* KELOPAK BUNGA SIMPLE, LEMBUT & ELEGAN */
+    .petal-container {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+      overflow: hidden;
+    }
+
+    .soft-petal {
+      position: absolute;
+      width: 13px;
+      height: 18px;
+      background: radial-gradient(circle at 35% 30%, #ffffff 0%, #fbd5e1 55%, #f4aebf 100%);
+      border-radius: 50% 50% 50% 0;
+      opacity: 0.75;
+      box-shadow: 0 2px 5px rgba(196, 139, 159, 0.15);
+      animation: gentlePetalFall linear forwards;
+    }
+
+    @keyframes gentlePetalFall {
+      0% {
+        top: -15%;
+        transform: translateX(0) rotate(0deg) scale(0.9);
+        opacity: 0;
+      }
+      15% {
+        opacity: 0.85;
+      }
+      100% {
+        top: 110%;
+        transform: translateX(28px) rotate(140deg) scale(1);
+        opacity: 0;
+      }
     }
 
     .walking-trio-group {
       position: absolute;
-      left: 12px;
+      left: 15px;
       z-index: 5;
       display: flex;
       align-items: center;
-      gap: 5px;
-      transition: left 0.15s ease-out;
+      gap: 6px;
     }
 
     .walking-step {
@@ -930,10 +964,28 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      position: relative;
     }
 
     .walker-card.bride-center {
       margin-top: -6px;
+    }
+
+    .escort-cry-bubble {
+      display: none;
+      position: absolute;
+      top: -30px;
+      background: #ffffff;
+      border: 1px solid var(--rose-accent);
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--rose-dark);
+      white-space: nowrap;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      animation: dialogPop 0.3s ease;
+      z-index: 20;
     }
 
     .walker-img {
@@ -942,6 +994,7 @@
       box-shadow: 0 5px 14px rgba(0,0,0,0.12);
       border: 2px solid #ffffff;
       background: #fff;
+      transition: all 0.3s ease;
     }
 
     .walker-img.escort {
@@ -951,14 +1004,14 @@
     }
 
     .walker-img.bride {
-      width: 68px;
-      height: 68px;
-      border: 3px solid rgba(212, 175, 55, 0.85);
-      box-shadow: 0 6px 18px rgba(212, 175, 55, 0.35);
+      width: 72px;
+      height: 72px;
+      border: 3.5px solid rgba(212, 175, 55, 0.95);
+      box-shadow: 0 6px 18px rgba(212, 175, 55, 0.4);
     }
 
     .walker-label {
-      font-size: 0.65rem;
+      font-size: 0.66rem;
       font-weight: 700;
       color: var(--text-muted);
       margin-top: 2px;
@@ -967,49 +1020,147 @@
 
     .walker-label.bride-label {
       color: var(--rose-dark);
-      font-size: 0.72rem;
+      font-size: 0.74rem;
     }
 
     .waiting-groom-wrap {
       position: absolute;
-      right: 16px;
+      right: 20px;
       z-index: 4;
       display: flex;
       flex-direction: column;
       align-items: center;
+      transition: all 0.3s ease;
     }
 
     .waiting-groom-wrap img {
-      width: 72px;
-      height: 72px;
+      width: 76px;
+      height: 76px;
       border-radius: 50%;
-      border: 3px solid rgba(112, 214, 255, 0.8);
+      border: 3px solid rgba(112, 214, 255, 0.9);
       object-fit: cover;
       box-shadow: 0 6px 18px rgba(0,0,0,0.12);
       background: #fff;
     }
 
-    .aisle-slider-control {
-      width: 100%;
-      max-width: 440px;
-      margin: 16px auto 6px;
-      -webkit-appearance: none;
-      height: 16px;
-      border-radius: 10px;
-      background: #eee3e7;
-      outline: none;
+    /* KONTENER KHUSUS PENGANTIN JALAN BERDUA SAMPAI HILANG */
+    .couple-walking-away {
+      position: absolute;
+      z-index: 6;
+      display: none;
+      align-items: center;
+      gap: 6px;
+      pointer-events: none;
     }
 
-    .aisle-slider-control::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--rose-accent);
-      cursor: grab;
-      border: 2px solid #ffffff;
-      box-shadow: 0 4px 10px rgba(196, 139, 159, 0.4);
+    .couple-walk-disappear {
+      display: flex !important;
+      animation: coupleWalkOff 5s cubic-bezier(0.3, 0, 0.2, 1) forwards;
     }
+
+    @keyframes coupleWalkOff {
+      0% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      80% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateX(250px);
+        opacity: 0;
+      }
+    }
+
+    /* Progress bar durasi jalan 36 detik */
+    .walk-timeline-bar-wrap {
+      width: 100%;
+      max-width: 520px;
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .walk-timeline-track {
+      width: 100%;
+      height: 8px;
+      background: #f0e4ea;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .walk-timeline-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--rose-accent), var(--gold-accent));
+      border-radius: 10px;
+      transition: width 0.1s linear;
+    }
+
+    .walk-timeline-text {
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: var(--rose-dark);
+    }
+
+    /* MODAL POPUP GANTI LAGU */
+    .song-modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(43, 35, 38, 0.45);
+      backdrop-filter: blur(5px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      animation: popIn 0.3s ease;
+    }
+
+    .song-modal-box {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 24px 22px;
+      max-width: 380px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+    }
+
+    .song-modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.65rem;
+      font-weight: 600;
+      color: var(--rose-dark);
+      margin-bottom: 6px;
+    }
+
+    .song-modal-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .song-modal-btn {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.84rem;
+      background: linear-gradient(135deg, var(--rose-accent), var(--rose-dark));
+      color: #ffffff;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 22px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(140, 76, 100, 0.3);
+      transition: all 0.2s ease;
+    }
+    .song-modal-btn:hover { transform: translateY(-2px); }
 
     .pelaminan-stage {
       display: none;
@@ -1157,8 +1308,14 @@
     </div>
   </div>
 
+  <!-- AUDIO 1: ABBA DANCING QUEEN -->
   <audio id="bgMusic" loop preload="auto">
     <source src="abba-dancing-queen_abba-dancing-queen.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- AUDIO 2: BANDA NEIRA - SAMPAI JADI DEBU -->
+  <audio id="aisleMusic" loop preload="auto">
+    <source src="Sampai Jadi Debu - Banda Neira.mp3" type="audio/mpeg">
   </audio>
 
   <button id="musicToggle" class="music-btn" title="Audio">
@@ -1470,7 +1627,7 @@
       </div>
 
       <!-- SCENE 12: KETEMU JODOH GURU DOLOPO -->
-      <div class="scene" data-chapter="The Groom">
+      <div class="scene" data-chapter="Mas Rizki">
         <h2 class="caption-title">Jodoh di Tempat yang Sama</h2>
         <p class="story-text">
           Kak Yayang mengajar dan mengabdi sebagai guru di SMAN 1 Dolopo. 
@@ -1485,7 +1642,7 @@
           <div style="font-family:'Cormorant Garamond', serif; font-size: 1.8rem; font-style: italic; color: var(--rose-accent);">&</div>
           <div class="avatar-item">
             <img src="poto/groom.png" class="poto-sticker poto-groom" style="width:82px; height:82px;">
-            <span class="avatar-label" style="margin-top:4px;">The Groom</span>
+            <span class="avatar-label" style="margin-top:4px;">Mas Rizki</span>
           </div>
         </div>
 
@@ -1497,34 +1654,33 @@
         </p>
       </div>
 
-      <!-- SCENE 13: GAME MANCING GROOM + TRANSISI GROOM BERSIAP -->
-      <div class="scene" data-chapter="Pancing The Groom!">
-        <h2 class="caption-title" id="fishingTitle" style="margin-bottom: 2px;">Eits, Pancing Dulu Groom-nya!</h2>
+      <!-- SCENE 13: GAME MANCING MAS RIZKI + TRANSISI BERSIAP -->
+      <div class="scene" data-chapter="Pancing Mas Rizki!">
+        <h2 class="caption-title" id="fishingTitle" style="margin-bottom: 2px;">Eits, Pancing Dulu Mas Rizki-nya!</h2>
         <p class="story-text" id="fishingSub" style="font-size: 0.86rem; margin-bottom: 4px;">
-          Sebelum persiapan ke pelaminan, kita pancing dulu groom-nya!<br>
-          Ayo Kak Yayang, gunakan kail pancingmu dan <b>pancing 5 Groom</b> yang muncul dari lubang!
+          Sebelum persiapan ke pelaminan, kita pancing dulu Mas Rizkinya buat siap-siap!<br>
+          Ayo Kak Yayang, gunakan kail pancingmu dan <b>pancing 5 Mas Rizki</b> yang muncul dari lubang!
         </p>
 
         <div class="fishing-arena" id="fishingArena">
           <div class="fishing-stats-bar" id="fishingStatsBar">
-            <span>Target: The Groom</span>
+            <span>Target: Mas Rizki</span>
             <div class="fishing-hud">
               🎣 Tertangkap: <b id="fishGroomCount" style="color:var(--rose-dark);">0</b> / 5
             </div>
           </div>
 
-          <!-- 9 Lubang Arena -->
           <div class="holes-grid" id="holesGrid"></div>
 
-          <div class="fishing-msg-toast" id="fishingToast">Siap-siap... pancing Groom-nya!</div>
+          <div class="fishing-msg-toast" id="fishingToast">Siap-siap... pancing Mas Rizki-nya!</div>
 
-          <!-- Bagian Transisi Lucu: Groom Kiss & Makeover -->
+          <!-- Bagian Transisi Lucu: Mas Rizki Kiss & Makeover -->
           <div class="groom-prep-transition" id="groomPrepTransition">
             <div class="groom-bubble-dialog" id="groomDialog">
-              “Aku siap-siap dulu yaa sayang! 😘”
+              “Aku siap-siap dulu yaa sayang!😘”
             </div>
 
-            <img id="groomBigImg" src="poto/groom_kiss.png" class="groom-big-actor groom-bouncing-kiss" alt="The Groom Kiss">
+            <img id="groomBigImg" src="poto/groom_kiss.png" class="groom-big-actor groom-bouncing-kiss" alt="Mas Rizki Kiss">
 
             <div class="groom-loading-box" id="groomLoadingBox">
               <div class="groom-loading-text" id="groomLoadingText">
@@ -1542,7 +1698,7 @@
       <div class="scene" data-chapter="Bridal Atelier">
         <h2 class="caption-title" style="margin-bottom: 2px;">The Bridal Atelier</h2>
         <p class="story-text" style="font-size: 0.86rem; margin-bottom: 4px;">
-          Groom sudah ganteng dan siap! Sekarang yuk bantu pasangkan perlengkapan pernikahan Kak Yayang!
+          Mas Rizki sudah siap! Sekarang yuk bantu pasangkan perlengkapan pernikahan Kak Yayang!
         </p>
 
         <div class="makeover-preview-box">
@@ -1587,7 +1743,7 @@
             <div style="font-family:'Cormorant Garamond', serif; font-size: 1.5rem; font-style:italic; color: var(--rose-accent);">with</div>
             <div class="avatar-item">
               <img src="makeover/groommakeover.png" class="poto-sticker poto-groom" style="width:70px; height:70px; border-color:#70d6ff;">
-              <span class="avatar-label" style="margin-top:3px;">The Groom</span>
+              <span class="avatar-label" style="margin-top:3px;">Mas Rizki</span>
             </div>
           </div>
           <div class="zoom-card">
@@ -1609,48 +1765,88 @@
         </p>
       </div>
 
-      <!-- SCENE 16: REAL AISLE WALK WITH RIANA & DEA -->
+      <!-- SCENE 16: AISLE WALK OTOMATIS 36 DETIK -->
       <div class="scene" data-chapter="The Wedding Aisle">
+        <!-- MODAL GANTI LAGU & MULAI JALAN -->
+        <div class="song-modal-overlay" id="songChangeModal">
+          <div class="song-modal-box">
+            <div style="font-size: 2rem; margin-bottom: 4px;"></div>
+            <h3 class="song-modal-title">Eits, Ganti Lagu Dulu Kak!</h3>
+            <p class="song-modal-desc">
+              Biar makin menghayati langkah menuju pelaminan, kita putar lagu yang paling syahdu:<br>
+            </p>
+            <button class="song-modal-btn" onclick="startCinematicWalk()">
+              Putar Lagu & Mulai Melangkah
+            </button>
+          </div>
+        </div>
+
         <h2 class="caption-title" id="finaleTitle">Walking Down the Aisle</h2>
         <p class="story-text" id="finaleSubtitle" style="font-size: 0.88rem; margin-bottom: 6px;">
-          Geser tuas di bawah: <b>Riana & Dea</b> akan mendampingi di samping kanan & kiri Kak Yayang melangkah menemui sang Groom.
+          Duduk santai dan hayati momen ini: <b>Riana & Dea</b> mendampingi langkah Kak Yayang menuju Mas Rizki.
         </p>
 
         <div class="aisle-walk-box" id="aisleBox">
           <div class="aisle-track" id="aisleTrack">
+            <!-- Hamburan Kelopak Bunga Simple & Elegan -->
+            <div class="petal-container" id="petalContainer"></div>
+
             <div class="aisle-carpet"></div>
             
+            <!-- Trio Pengantar -->
             <div class="walking-trio-group" id="walkingTrioGroup">
               <div class="walker-card">
-                <img src="poto/nana.png" class="walker-img escort" alt="Riana">
+                <span class="escort-cry-bubble" id="nanaCryBubble">Hiks</span>
+                <img id="escortNanaImg" src="poto/nana.png" class="walker-img escort" alt="Riana">
                 <span class="walker-label">Riana</span>
               </div>
 
-              <div class="walker-card bride-center">
+              <div class="walker-card bride-center" id="brideWalkerCenter">
                 <img src="makeover/makeover5.png" class="walker-img bride" alt="Kak Yayang">
                 <span class="walker-label bride-label">Kak Yayang</span>
               </div>
 
               <div class="walker-card">
-                <img src="poto/dea.png" class="walker-img escort" alt="Dea">
+                <span class="escort-cry-bubble" id="deaCryBubble">Hiks</span>
+                <img id="escortDeaImg" src="poto/dea.png" class="walker-img escort" alt="Dea">
                 <span class="walker-label">Dea</span>
               </div>
             </div>
 
-            <div class="waiting-groom-wrap">
-              <img src="makeover/groommakeover.png" alt="Groom">
-              <span style="font-size:0.75rem; font-weight:700; color:var(--text-muted); margin-top:3px;">Groom</span>
+            <!-- Mas Rizki Menunggu -->
+            <div class="waiting-groom-wrap" id="waitingGroomWrap">
+              <img src="makeover/groommakeover.png" alt="Mas Rizki">
+              <span style="font-size:0.75rem; font-weight:700; color:var(--text-muted); margin-top:3px;">Mas Rizki</span>
             </div>
+
+            <!-- Pasangan Pengantin Berjalan Berdua Menuju Pelaminan Hingga Hilang -->
+            <div class="couple-walking-away" id="coupleWalkingAway">
+              <div class="walker-card">
+                <img src="makeover/makeover5.png" class="walker-img bride" alt="Kak Yayang">
+                <span class="walker-label bride-label">Kak Yayang</span>
+              </div>
+              <div class="walker-card">
+                <img src="makeover/groommakeover.png" class="walker-img" style="width:72px; height:72px; border: 3.5px solid rgba(112, 214, 255, 0.95);" alt="Mas Rizki">
+                <span class="walker-label" style="color: #0077b6;">Mas Rizki</span>
+              </div>
+            </div>
+
           </div>
 
-          <input type="range" min="0" max="100" value="0" class="aisle-slider-control" id="aisleRange" oninput="onAisleSlide(this.value)">
-          <div style="font-size: 0.76rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--rose-accent); margin-top: 6px;">
-            Geser tuas ke kanan untuk melangkah
+          <!-- Progress Bar Perjalanan 36 Detik -->
+          <div class="walk-timeline-bar-wrap">
+            <div class="walk-timeline-track">
+              <div class="walk-timeline-fill" id="walkTimelineFill"></div>
+            </div>
+            <div class="walk-timeline-text" id="walkTimelineText">
+              Melangkah perlahan diiringi lagu syahdu...
+            </div>
           </div>
         </div>
 
+        <!-- Tampilan Akhir di Pelaminan (Kembali Putar ABBA Dancing Queen) -->
         <div class="pelaminan-stage" id="pelaminanStage">
-          <img src="makeover/bridegroom.png" class="pelaminan-photo" alt="Kak Yayang & Suami di Pelaminan">
+          <img src="makeover/bridegroom.png" class="pelaminan-photo" alt="Kak Yayang & Mas Rizki di Pelaminan">
           
           <div class="party-cheerleaders">
             <div class="party-actor bounce-dance-1">
@@ -1673,7 +1869,7 @@
           </div>
 
           <h3 style="font-family:'Cormorant Garamond', serif; font-size: 2.1rem; font-weight: 600; color: var(--rose-dark); margin-top: 4px;">
-            Happy Wedding, Kak Yayang & Suami!
+            Happy Wedding, Kak Yayang & Mas Rizki!
           </h3>
           <p style="font-size: 0.86rem; color: var(--text-muted); max-width: 490px; line-height: 1.5; margin-top: 2px;">
             Dari kenangan MIPA 7, goreng telur di Kos Ungu, nyariin Mocca, sampai akhirnya Kak Yayang jadi manten secantik ini...<br>
@@ -1702,13 +1898,15 @@
     let currentScene = 0;
     let isFlipping = false;
 
-    /* AUDIO CONTROLLER */
+    /* AUDIO CONTROLLER (DUAL AUDIO) */
     const bgMusic = document.getElementById('bgMusic');
+    const aisleMusic = document.getElementById('aisleMusic');
     const musicToggle = document.getElementById('musicToggle');
     let isMusicPlaying = false;
+    let currentAudioTrack = bgMusic;
 
     function startMusic() {
-      bgMusic.play().then(() => {
+      currentAudioTrack.play().then(() => {
         isMusicPlaying = true;
         musicToggle.classList.add('playing');
       }).catch(() => {});
@@ -1716,7 +1914,7 @@
 
     function toggleMusic() {
       if (isMusicPlaying) {
-        bgMusic.pause();
+        currentAudioTrack.pause();
         isMusicPlaying = false;
         musicToggle.classList.remove('playing');
       } else {
@@ -1871,17 +2069,15 @@
       canvas.ontouchend = () => { isScratching = false; };
     }
 
-    /* ================================================= */
-    /* LOGIKA GAME MANCING GROOM + TRANSISI MAKEOVER     */
-    /* ================================================= */
+    /* LOGIKA GAME MANCING MAS RIZKI + TRANSISI MAKEOVER */
     let fishingGroomScore = 0;
     let fishingInterval = null;
     let isGroomSequenceComplete = false;
     const TARGET_GROOM = 5;
 
     const charactersPool = [
-      { type: 'groom', src: 'poto/groom.png', label: 'Dapet The Groom! 💍' },
-      { type: 'groom', src: 'poto/groom.png', label: 'Dapet The Groom! 💍' },
+      { type: 'groom', src: 'poto/groom.png', label: 'Dapet Mas Rizki! 💍' },
+      { type: 'groom', src: 'poto/groom.png', label: 'Dapet Mas Rizki! 💍' },
       { type: 'nana', src: 'poto/nana.png', label: 'Eh kepancing Riana wkwk!' },
       { type: 'dea', src: 'poto/dea.png', label: 'Waduh malah Dea yang kepancing!' },
       { type: 'mocca', src: 'poto/mocca.png', label: 'Meoow! Malah dapet Mocca 🐾' }
@@ -1898,9 +2094,9 @@
       document.getElementById('groomPrepTransition').style.display = 'none';
 
       document.getElementById('fishGroomCount').innerText = '0';
-      document.getElementById('fishingToast').innerText = 'Ayo pancing The Groom yang muncul!';
+      document.getElementById('fishingToast').innerText = 'Ayo pancing Mas Rizki yang muncul!';
       btnNext.disabled = true;
-      btnNext.innerText = 'Pancing 5 Groom';
+      btnNext.innerText = 'Pancing 5 Mas Rizki';
 
       const holesGrid = document.getElementById('holesGrid');
       holesGrid.innerHTML = '';
@@ -1983,14 +2179,11 @@
       }, 380);
     }
 
-    /* TRANSISI: GROOM KISS -> LOADING -> GROOM MAKEOVER */
     function playGroomCuteTransition() {
-      // Sembunyikan 9 lubang
       document.getElementById('holesGrid').style.display = 'none';
       document.getElementById('fishingStatsBar').style.display = 'none';
       document.getElementById('fishingToast').style.display = 'none';
 
-      // Tampilkan Groom Kiss bergerak
       const prepBox = document.getElementById('groomPrepTransition');
       const dialog = document.getElementById('groomDialog');
       const groomImg = document.getElementById('groomBigImg');
@@ -1998,25 +2191,23 @@
       const fillBar = document.getElementById('groomLoadingFill');
 
       prepBox.style.display = 'flex';
-      dialog.innerText = '“Aku siap-siap dulu yaa sayang!😘”';
+      dialog.innerText = '“Aku siap-siap dulu yaa sayang! 😘”';
       groomImg.src = 'poto/groom_kiss.png';
       groomImg.className = 'groom-big-actor groom-bouncing-kiss';
       loadingBox.style.display = 'none';
       fillBar.style.width = '0%';
 
-      // Setelah 1.8 detik, muncul loading lucu
       setTimeout(() => {
         loadingBox.style.display = 'flex';
         dialog.innerText = '“Bentar yaa, lagi dirapihin dulu...”';
         setTimeout(() => { fillBar.style.width = '100%'; }, 100);
       }, 1800);
 
-      // Setelah loading selesai, transformasi ke Groom Makeover
       setTimeout(() => {
         groomImg.className = 'groom-big-actor';
         groomImg.src = 'makeover/groommakeover.png';
         loadingBox.style.display = 'none';
-        dialog.innerText = '“Tadaaa! Sudah ganteng dan siap nikah! 🤵”';
+        dialog.innerText = '“Tadaaa! Sudah siap nikah!”';
         isGroomSequenceComplete = true;
 
         confetti({
@@ -2080,42 +2271,138 @@
       }
     }
 
-    /* SCENE 16: AISLE SLIDER */
+    /* ================================================= */
+    /* SCENE 16: AISLE CINEMATIC AUTO-WALK (36 DETIK)    */
+    /* ================================================= */
     let aisleCompleted = false;
+    let petalInterval = null;
+    let walkTimerInterval = null;
 
     function initAisle() {
       aisleCompleted = false;
+      if (walkTimerInterval) clearInterval(walkTimerInterval);
+
       document.getElementById('aisleBox').style.display = 'flex';
       document.getElementById('pelaminanStage').style.display = 'none';
-      document.getElementById('aisleRange').value = 0;
       
       const trioGroup = document.getElementById('walkingTrioGroup');
-      trioGroup.style.left = '12px';
+      trioGroup.style.display = 'flex';
+      trioGroup.style.left = '15px';
       trioGroup.classList.remove('walking-step');
+
+      // Reset tampilan awal
+      document.getElementById('escortNanaImg').src = 'poto/nana.png';
+      document.getElementById('escortDeaImg').src = 'poto/dea.png';
+      document.getElementById('nanaCryBubble').style.display = 'none';
+      document.getElementById('deaCryBubble').style.display = 'none';
+      document.getElementById('brideWalkerCenter').style.display = 'flex';
+      document.getElementById('waitingGroomWrap').style.display = 'flex';
+
+      const coupleWalking = document.getElementById('coupleWalkingAway');
+      coupleWalking.className = 'couple-walking-away';
+      coupleWalking.style.display = 'none';
+
+      document.getElementById('walkTimelineFill').style.width = '0%';
+      document.getElementById('walkTimelineText').innerText = 'Melangkah perlahan diiringi lagu syahdu...';
 
       document.getElementById('finaleTitle').innerText = 'Walking Down the Aisle';
       document.getElementById('finaleSubtitle').style.display = 'block';
+
+      btnNext.disabled = true;
+      btnNext.innerText = 'Menuju Pelaminan...';
+
+      // Munculkan modal untuk persetujuan ganti lagu & auto walk
+      document.getElementById('songChangeModal').style.display = 'flex';
+      createSoftPetals();
     }
 
-    function onAisleSlide(val) {
-      if (aisleCompleted) return;
+    function startCinematicWalk() {
+      document.getElementById('songChangeModal').style.display = 'none';
+
+      // 1. Putar lagu Banda Neira
+      bgMusic.pause();
+      currentAudioTrack = aisleMusic;
+      currentAudioTrack.currentTime = 0;
+      startMusic();
+
+      confetti({
+        particleCount: 25,
+        spread: 45,
+        origin: { y: 0.55 },
+        colors: ['#f9d8e2', '#f4b6c8', '#ffffff']
+      });
+
+      // 2. Jalankan animasi otomatis berjalan tepat 36 detik
+      runAisle36SecondsFlow();
+    }
+
+    function runAisle36SecondsFlow() {
+      const TOTAL_SECONDS = 36;
+      let elapsed = 0;
 
       const track = document.getElementById('aisleTrack');
       const trioGroup = document.getElementById('walkingTrioGroup');
-
+      const maxTrioLeft = track.clientWidth - 280;
       trioGroup.classList.add('walking-step');
 
-      const maxLeft = track.clientWidth - 265;
-      const newLeft = 12 + (val / 100) * (maxLeft - 12);
-      trioGroup.style.left = `${newLeft}px`;
+      const fillBar = document.getElementById('walkTimelineFill');
+      const timelineText = document.getElementById('walkTimelineText');
 
-      if (val >= 92) {
-        aisleCompleted = true;
-        document.getElementById('aisleRange').value = 100;
-        trioGroup.style.left = `${maxLeft}px`;
-        trioGroup.classList.remove('walking-step');
+      walkTimerInterval = setInterval(() => {
+        elapsed += 0.2;
+        const progress = Math.min((elapsed / TOTAL_SECONDS) * 100, 100);
+        fillBar.style.width = `${progress}%`;
 
-        setTimeout(() => {
+        // PHASE 1: Detik 0 s/d 26 -> Riana, Kak Yayang & Dea berjalan perlahan ke arah Mas Rizki
+        if (elapsed <= 26) {
+          const walkRatio = elapsed / 26;
+          const currentLeft = 15 + walkRatio * (maxTrioLeft - 15);
+          trioGroup.style.left = `${currentLeft}px`;
+          timelineText.innerText = `Riana & Dea mengiringi Kak Yayang melangkah`;
+        }
+
+        // PHASE 2: Detik 26 -> Sampai di hadapan Mas Rizki, Riana & Dea berhenti & menangis haru
+        if (elapsed >= 26 && elapsed < 31) {
+          trioGroup.classList.remove('walking-step');
+          trioGroup.style.left = `${maxTrioLeft}px`;
+
+          document.getElementById('escortNanaImg').src = 'poto/nana_nangis.png';
+          document.getElementById('escortDeaImg').src = 'poto/dea_nangis.png';
+          document.getElementById('nanaCryBubble').style.display = 'block';
+          document.getElementById('deaCryBubble').style.display = 'block';
+
+          timelineText.innerText = 'Riana & Dea melepas Kak Yayang dengan tangis haru bahagia...';
+        }
+
+        // PHASE 3: Detik 31 -> Kak Yayang & Mas Rizki bergandengan dan berjalan sendiri hingga hilang (selama 5 detik)
+        if (elapsed >= 31 && elapsed < 36) {
+          document.getElementById('brideWalkerCenter').style.display = 'none';
+          document.getElementById('waitingGroomWrap').style.display = 'none';
+
+          const coupleWalking = document.getElementById('coupleWalkingAway');
+          if (!coupleWalking.classList.contains('couple-walk-disappear')) {
+            coupleWalking.style.left = `${maxTrioLeft + 52}px`;
+            coupleWalking.classList.add('couple-walk-disappear');
+          }
+
+          timelineText.innerText = 'Kak Yayang melangkah bersama Mas Rizki menuju pelaminan...';
+        }
+
+        // PHASE 4: Tepat detik 36 -> Sampai di Pelaminan, Banda Neira berhenti, ABBA DANCING QUEEN kembali menyala meriah!
+        if (elapsed >= TOTAL_SECONDS) {
+          clearInterval(walkTimerInterval);
+          aisleCompleted = true;
+
+          // Hentikan lagu Banda Neira
+          aisleMusic.pause();
+          aisleMusic.currentTime = 0;
+
+          // Putar kembali lagu Dancing Queen dari awal dengan meriah!
+          currentAudioTrack = bgMusic;
+          currentAudioTrack.currentTime = 0;
+          startMusic();
+
+          // Tampilkan panggung pelaminan
           document.getElementById('aisleBox').style.display = 'none';
           document.getElementById('finaleSubtitle').style.display = 'none';
           document.getElementById('finaleTitle').innerText = 'The Wedding Day';
@@ -2125,8 +2412,29 @@
           btnNext.innerText = 'Ulangi Cerita';
 
           celebrateGrandConfetti();
-        }, 500);
-      }
+        }
+      }, 200);
+    }
+
+    function createSoftPetals() {
+      const container = document.getElementById('petalContainer');
+      container.innerHTML = '';
+      if (petalInterval) clearInterval(petalInterval);
+
+      petalInterval = setInterval(() => {
+        if (aisleCompleted) {
+          clearInterval(petalInterval);
+          return;
+        }
+        const petal = document.createElement('div');
+        petal.className = 'soft-petal';
+        petal.style.left = (Math.random() * 92 + 2) + '%';
+        petal.style.animationDuration = (Math.random() * 2 + 3) + 's';
+        petal.style.transform = `scale(${Math.random() * 0.4 + 0.8})`;
+        container.appendChild(petal);
+
+        setTimeout(() => { petal.remove(); }, 5000);
+      }, 550);
     }
 
     /* REALISTIC 3D PHYSICAL PAPER FLIP CONTROLLER */
@@ -2135,6 +2443,7 @@
       isFlipping = true;
 
       stopFishingLoop();
+      if (walkTimerInterval) clearInterval(walkTimerInterval);
 
       paperSheet.className = 'paper-flip-sheet';
       void paperSheet.offsetWidth;
@@ -2163,6 +2472,13 @@
       pageCounter.innerText = `${idx + 1} / ${scenes.length}`;
       btnPrev.disabled = (idx === 0);
 
+      // Kembalikan audio ke Dancing Queen jika berpindah ke halaman lain
+      if (idx !== 15 && currentAudioTrack !== bgMusic) {
+        aisleMusic.pause();
+        currentAudioTrack = bgMusic;
+        startMusic();
+      }
+
       // Scene 09: Memory Game
       if (idx === 8) {
         if (matchedCount < 3) {
@@ -2180,11 +2496,11 @@
         btnNext.innerText = 'Lanjut';
         setTimeout(initScratchCard, 100);
       }
-      // Scene 13: Game Mancing Groom
+      // Scene 13: Game Mancing Mas Rizki
       else if (idx === 12) {
         if (!isGroomSequenceComplete) {
           btnNext.disabled = true;
-          btnNext.innerText = 'Pancing 5 Groom';
+          btnNext.innerText = 'Pancing 5 Mas Rizki';
           initFishingGame();
         } else {
           btnNext.disabled = false;
@@ -2206,19 +2522,18 @@
       else if (idx === 15) {
         if (!aisleCompleted) {
           btnNext.disabled = true;
-          btnNext.innerText = 'Antarkan Kak Yayang';
+          btnNext.innerText = 'Menuju Pelaminan...';
           initAisle();
         } else {
           btnNext.disabled = false;
           btnNext.innerText = 'Ulangi Cerita';
-          celebrateGrandConfetti();
         }
       }
       // Scene Biasa
       else {
         btnNext.disabled = false;
         if (idx === 7) btnNext.innerText = 'Buka Kenangan';
-        else if (idx === 11) btnNext.innerText = 'Mancing Groom!';
+        else if (idx === 11) btnNext.innerText = 'Mancing Mas Rizki!';
         else if (idx === 14) btnNext.innerText = 'Menuju Pelaminan';
         else btnNext.innerText = 'Lanjut';
       }
@@ -2240,6 +2555,7 @@
       }
     });
 
+    /* KEMBANG API & CONFETTI SUPER MERIAH */
     function celebrateGrandConfetti() {
       const duration = 5 * 1000;
       const animationEnd = Date.now() + duration;
