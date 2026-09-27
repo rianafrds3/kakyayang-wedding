@@ -15,22 +15,21 @@
 
   <style>
     :root {
-      --bg-cream: #f6f0eb;
-      --card-bg: #ffffff;
       --rose-accent: #c48b9f;
-      --rose-dark: #8c4c64;
-      --rose-soft: #f7e6eb;
+      --rose-dark: #844158;
       --gold-accent: #d4af37;
-      --text-main: #2b2326;
-      --text-muted: #6b5c62;
-      --border-subtle: rgba(196, 139, 159, 0.25);
+      --gold-light: #fbe3b5;
+      --gold-border: rgba(212, 175, 55, 0.55);
+      --text-main: #2b1f24;
+      --text-muted: #57464c;
+      --border-subtle: rgba(196, 139, 159, 0.35);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* BACKGROUND UTAMA: HALAMAN ISTANA TAMAN TERBUKA */
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: var(--bg-cream);
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -39,6 +38,20 @@
       padding: 14px;
       overflow: hidden;
       position: relative;
+      background-image: url('poto/istana_dalam.png');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      transition: transform 3.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    body.entered-palace {
+      animation: palaceZoomIn 10s ease-out forwards;
+    }
+
+    @keyframes palaceZoomIn {
+      0% { background-size: 105% auto; }
+      100% { background-size: 115% auto; }
     }
 
     .ambient-glow {
@@ -46,21 +59,15 @@
       width: 440px;
       height: 440px;
       border-radius: 50%;
-      filter: blur(95px);
-      opacity: 0.45;
-      z-index: 0;
+      filter: blur(100px);
+      opacity: 0.35;
+      z-index: 2;
       pointer-events: none;
-      animation: floatAmbient 12s ease-in-out infinite alternate;
     }
-    .glow-1 { top: -60px; left: -80px; background: #fce1e8; }
-    .glow-2 { bottom: -60px; right: -80px; background: #e8dbf2; animation-delay: -5s; }
+    .glow-1 { top: -60px; left: -80px; background: #ffd7e2; }
+    .glow-2 { bottom: -60px; right: -80px; background: #ffe4b8; }
 
-    @keyframes floatAmbient {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(40px, 50px) scale(1.15); }
-    }
-
-    /* ENTRANCE GATE */
+    /* GERBANG MASUK KERAJAAN */
     .door-overlay {
       position: fixed;
       inset: 0;
@@ -68,7 +75,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      perspective: 1400px;
+      perspective: 1800px;
       overflow: hidden;
     }
 
@@ -77,40 +84,58 @@
       top: 0;
       bottom: 0;
       width: 50%;
-      background: linear-gradient(135deg, #fdfbf9, #f7eff3);
-      box-shadow: inset 0 0 60px rgba(196, 139, 159, 0.15);
-      transition: transform 1.2s cubic-bezier(0.7, 0, 0.2, 1);
+      background-image: url('poto/gerbang.png');
+      background-size: 200% 100%;
+      background-repeat: no-repeat;
+      transition: transform 1.8s cubic-bezier(0.65, 0, 0.25, 1);
       z-index: 10;
+      filter: drop-shadow(0 0 25px rgba(0, 0, 0, 0.45));
     }
 
-    .door-left { left: 0; transform-origin: left center; border-right: 1px solid rgba(212, 175, 55, 0.3); }
-    .door-right { right: 0; transform-origin: right center; border-left: 1px solid rgba(212, 175, 55, 0.3); }
+    .door-left {
+      left: 0;
+      background-position: left center;
+      transform-origin: left center;
+      border-right: 2px solid rgba(212, 175, 55, 0.85);
+    }
+
+    .door-right {
+      right: 0;
+      background-position: right center;
+      transform-origin: right center;
+      border-left: 2px solid rgba(212, 175, 55, 0.85);
+    }
 
     .door-overlay.open .door-left { transform: rotateY(-110deg); }
     .door-overlay.open .door-right { transform: rotateY(110deg); }
 
     .door-content {
       position: relative;
-      z-index: 20;
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(14px);
-      padding: 38px 30px;
-      border-radius: 20px;
-      border: 1px solid rgba(212, 175, 55, 0.35);
-      box-shadow: 0 25px 50px -12px rgba(140, 76, 100, 0.15);
+      z-index: 25;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 40px 34px;
+      border-radius: 28px;
+      border: 1.5px solid var(--gold-border);
+      box-shadow: 0 30px 60px rgba(43, 31, 36, 0.25), 0 0 25px rgba(212, 175, 55, 0.3);
       text-align: center;
-      max-width: 410px;
+      max-width: 440px;
       width: 90%;
-      transition: all 0.6s ease;
+      transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .door-overlay.open .door-content { opacity: 0; transform: scale(0.9); pointer-events: none; }
+    .door-overlay.open .door-content {
+      opacity: 0;
+      transform: scale(0.85) translateY(20px);
+      pointer-events: none;
+    }
 
     .door-eyebrow {
-      font-size: 0.76rem;
+      font-size: 0.78rem;
       letter-spacing: 3.5px;
       text-transform: uppercase;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--rose-accent);
       margin-bottom: 12px;
       display: block;
@@ -118,11 +143,11 @@
 
     .door-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2.3rem;
-      font-weight: 600;
+      font-size: 2.45rem;
+      font-weight: 700;
       color: var(--text-main);
       line-height: 1.2;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .door-sub {
@@ -135,62 +160,77 @@
     .open-door-btn {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 600;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       color: #ffffff;
-      background: linear-gradient(135deg, var(--rose-accent), var(--rose-dark));
-      border: none;
-      padding: 14px 34px;
-      border-radius: 30px;
+      background: linear-gradient(135deg, #c48b9f, #844158);
+      border: 1.5px solid var(--gold-accent);
+      padding: 15px 36px;
+      border-radius: 35px;
       cursor: pointer;
-      box-shadow: 0 8px 22px rgba(140, 76, 100, 0.28);
+      box-shadow: 0 10px 24px rgba(132, 65, 88, 0.35);
       transition: all 0.3s ease;
     }
 
-    .open-door-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(140, 76, 100, 0.38); }
+    .open-door-btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 14px 30px rgba(132, 65, 88, 0.45);
+    }
 
     .music-btn {
       position: fixed;
       top: 22px;
       right: 22px;
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      background: #ffffff;
-      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
+      border: 1.5px solid var(--gold-border);
       color: var(--rose-dark);
       font-weight: 700;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
       cursor: pointer;
       z-index: 999;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       transition: all 0.3s ease;
     }
     .music-btn.playing { animation: spinDisc 6s linear infinite; }
     @keyframes spinDisc { 100% { transform: rotate(360deg); } }
 
-    /* STORYBOOK COVER & SHELL */
+    /* ROYAL STORYBOOK CONTAINER */
     .storybook-container {
       width: 100%;
-      max-width: 790px;
+      max-width: 800px;
       height: 92vh;
       max-height: 720px;
-      background: #ffffff;
-      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 28px;
       box-shadow: 
-        0 25px 60px -15px rgba(140, 76, 100, 0.22),
-        inset 14px 0 25px -10px rgba(140, 76, 100, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.9);
+        0 30px 60px -10px rgba(42, 31, 36, 0.35),
+        0 0 30px rgba(212, 175, 55, 0.25),
+        inset 0 0 0 1.5px rgba(255, 255, 255, 0.9);
+      border: 1.5px solid var(--gold-border);
       position: relative;
       display: flex;
       flex-direction: column;
       overflow: hidden;
       z-index: 10;
       perspective: 2500px;
+      opacity: 0;
+      transform: translateY(20px) scale(0.97);
+      transition: opacity 1.2s ease 0.6s, transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s;
+    }
+
+    body.entered-palace .storybook-container {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
 
     .storybook-container::before {
@@ -198,41 +238,43 @@
       position: absolute;
       top: 0;
       bottom: 0;
-      left: 10px;
+      left: 12px;
       width: 3px;
-      background: linear-gradient(180deg, transparent, rgba(196, 139, 159, 0.3), transparent);
+      background: linear-gradient(180deg, transparent, var(--gold-accent), transparent);
       z-index: 50;
       pointer-events: none;
+      opacity: 0.6;
     }
 
     .header-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 18px 28px 6px;
+      padding: 18px 30px 6px;
       z-index: 20;
     }
 
     .chapter-pill {
       font-size: 0.74rem;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--rose-accent);
-      background: #ffffff;
-      padding: 4px 14px;
+      color: var(--rose-dark);
+      background: rgba(255, 255, 255, 0.92);
+      padding: 5px 16px;
       border-radius: 20px;
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--gold-border);
+      box-shadow: 0 2px 8px rgba(212, 175, 55, 0.15);
     }
 
     .page-counter {
-      font-size: 0.8rem;
-      font-weight: 500;
+      font-size: 0.82rem;
+      font-weight: 700;
       color: var(--text-muted);
       letter-spacing: 1px;
     }
 
-    /* VIEWPORT BUKU */
+    /* VIEWPORT */
     .scene-viewport {
       flex: 1;
       position: relative;
@@ -243,7 +285,6 @@
       overflow: hidden;
     }
 
-    /* KONTEN SCENE */
     .scene {
       position: absolute;
       inset: 0;
@@ -266,14 +307,14 @@
       z-index: 10;
     }
 
-    /* REALISTIC 3D PHYSICAL PAPER FLIP SHEET OVERLAY */
+    /* PAPER FLIP */
     .paper-flip-sheet {
       position: absolute;
       top: 0;
       bottom: 0;
       right: 0;
       width: 100%;
-      background: linear-gradient(to right, #fbf7f6 0%, #ffffff 8%, #ffffff 92%, #f5ecef 100%);
+      background: linear-gradient(to right, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.95) 15%, rgba(255,255,255,0.95) 85%, rgba(255,255,255,0.7) 100%);
       box-shadow: -15px 0 35px rgba(0, 0, 0, 0.12);
       transform-origin: left center;
       transform-style: preserve-3d;
@@ -289,24 +330,9 @@
     }
 
     @keyframes paperCurlNext {
-      0% {
-        transform: rotateY(0deg) skewY(0deg);
-        box-shadow: 0 0 0 rgba(0,0,0,0);
-      }
-      35% {
-        transform: rotateY(-60deg) skewY(-2deg) scale(0.98);
-        box-shadow: -22px 10px 45px rgba(140, 76, 100, 0.25);
-        background: linear-gradient(to right, #f4e8ed 0%, #ffffff 15%, #ffffff 85%, #eddde3 100%);
-      }
-      75% {
-        transform: rotateY(-135deg) skewY(1deg) scale(0.97);
-        box-shadow: -35px 15px 50px rgba(0,0,0,0.18);
-      }
-      100% {
-        transform: rotateY(-180deg) skewY(0deg);
-        box-shadow: 0 0 0 rgba(0,0,0,0);
-        opacity: 0;
-      }
+      0% { transform: rotateY(0deg); opacity: 1; }
+      50% { transform: rotateY(-90deg) scale(0.98); opacity: 0.9; }
+      100% { transform: rotateY(-180deg); opacity: 0; }
     }
 
     .paper-flip-sheet.anim-prev {
@@ -315,36 +341,22 @@
     }
 
     @keyframes paperCurlPrev {
-      0% {
-        transform: rotateY(-180deg) skewY(0deg);
-        box-shadow: 0 0 0 rgba(0,0,0,0);
-      }
-      35% {
-        transform: rotateY(-120deg) skewY(2deg) scale(0.98);
-        box-shadow: -25px 12px 45px rgba(140, 76, 100, 0.22);
-      }
-      75% {
-        transform: rotateY(-45deg) skewY(-1deg) scale(0.98);
-        box-shadow: -15px 8px 30px rgba(0,0,0,0.15);
-      }
-      100% {
-        transform: rotateY(0deg) skewY(0deg);
-        box-shadow: 0 0 0 rgba(0,0,0,0);
-        opacity: 0;
-      }
+      0% { transform: rotateY(-180deg); opacity: 1; }
+      50% { transform: rotateY(-90deg) scale(0.98); opacity: 0.9; }
+      100% { transform: rotateY(0deg); opacity: 0; }
     }
 
     .caption-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2.2rem;
-      font-weight: 600;
+      font-size: 2.25rem;
+      font-weight: 700;
       color: var(--text-main);
       margin-bottom: 6px;
       line-height: 1.15;
     }
 
     .story-text {
-      font-size: 0.92rem;
+      font-size: 0.93rem;
       line-height: 1.68;
       color: var(--text-muted);
       max-width: 550px;
@@ -358,12 +370,12 @@
       height: 74px;
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid #ffffff;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      border: 3px solid #ffffff;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
       transition: transform 0.35s ease;
     }
     .poto-sticker:hover { transform: scale(1.06); }
-    .poto-bride { border-color: rgba(212, 175, 55, 0.6); }
+    .poto-bride { border-color: var(--gold-accent); }
 
     .avatars-row {
       display: flex;
@@ -380,18 +392,18 @@
       gap: 3px;
     }
 
-    .avatar-label { font-size: 0.82rem; font-weight: 600; color: var(--text-main); }
-    .avatar-sub { font-size: 0.72rem; color: var(--text-muted); }
+    .avatar-label { font-size: 0.82rem; font-weight: 700; color: var(--text-main); }
+    .avatar-sub { font-size: 0.72rem; color: var(--text-muted); font-weight: 500; }
 
     .aesthetic-card {
-      background: #faf7f8;
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 14px 22px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid var(--gold-border);
+      border-radius: 18px;
+      padding: 15px 22px;
       margin: 6px 0;
       width: 100%;
       max-width: 520px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.04);
     }
 
     .editorial-tag-list {
@@ -404,29 +416,31 @@
     }
 
     .editorial-tag-list span {
-      background: #ffffff;
-      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--gold-border);
       font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--text-main);
+      font-weight: 600;
+      color: var(--rose-dark);
       padding: 6px 14px;
       border-radius: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
     }
 
     .quote-box {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.45rem;
       font-style: italic;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--rose-dark);
-      background: #fff8fa;
-      border: 1px solid rgba(196, 139, 159, 0.3);
+      background: rgba(255, 248, 250, 0.85);
+      border: 1.5px solid var(--gold-border);
       padding: 12px 28px;
-      border-radius: 18px;
+      border-radius: 20px;
       margin: 10px 0;
+      box-shadow: 0 4px 14px rgba(212, 175, 55, 0.15);
     }
 
-    /* GAME 1: MEMORY CARDS */
+    /* MINI GAME: MEMORY CARDS */
     .memory-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -448,7 +462,7 @@
       position: relative;
       transform-style: preserve-3d;
       transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-      border-radius: 12px;
+      border-radius: 14px;
     }
 
     .card-item.flipped .card-inner,
@@ -457,7 +471,7 @@
     .card-front, .card-back {
       position: absolute;
       inset: 0;
-      border-radius: 12px;
+      border-radius: 14px;
       backface-visibility: hidden;
       display: flex;
       flex-direction: column;
@@ -466,21 +480,21 @@
     }
 
     .card-front {
-      background: linear-gradient(135deg, #ffffff, #f9f3f6);
-      border: 1px solid rgba(196, 139, 159, 0.35);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1.5px solid var(--gold-border);
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       font-style: italic;
-      color: var(--rose-accent);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+      color: var(--gold-accent);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
 
     .card-back {
       background: #ffffff;
-      border: 1px solid var(--rose-accent);
+      border: 1.5px solid var(--rose-accent);
       transform: rotateY(180deg);
       padding: 6px;
-      box-shadow: 0 6px 16px rgba(140, 76, 100, 0.12);
+      box-shadow: 0 6px 16px rgba(140, 76, 100, 0.15);
     }
 
     .card-back img {
@@ -497,17 +511,17 @@
       color: var(--text-main);
     }
 
-    /* SCENE 11: SCRATCH CARD */
+    /* SCRATCH CARD */
     .scratch-container {
       position: relative;
       width: 100%;
       max-width: 440px;
       height: 200px;
       margin: 6px auto;
-      border-radius: 16px;
+      border-radius: 18px;
       overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
-      border: 1px solid var(--border-subtle);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+      border: 1.5px solid var(--gold-border);
     }
 
     .scratch-under-img {
@@ -537,9 +551,9 @@
     }
 
     .profesi-item {
-      background: #faf7f8;
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid var(--gold-border);
+      border-radius: 14px;
       padding: 8px 4px;
       display: flex;
       flex-direction: column;
@@ -549,30 +563,30 @@
 
     .profesi-item b {
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text-main);
     }
 
     .profesi-item span {
       font-size: 0.68rem;
-      color: var(--rose-accent);
+      color: var(--rose-dark);
       font-weight: 600;
       margin-top: 2px;
       line-height: 1.25;
     }
 
-    /* GAME: MANCING MAS RIZKI DARI 9 LUBANG */
+    /* GAME: MANCING MAS RIZKI */
     .fishing-arena {
       width: 100%;
       max-width: 360px;
-      background: #fdfafb;
-      border: 1px solid var(--border-subtle);
-      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1.5px solid var(--gold-border);
+      border-radius: 22px;
       padding: 12px;
       margin: 8px auto;
-      box-shadow: 0 8px 24px rgba(140, 76, 100, 0.08);
+      box-shadow: 0 8px 24px rgba(140, 76, 100, 0.1);
       position: relative;
-      cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 24 24'><text y='20' font-size='20'>🎣</text></svg>"), crosshair;
+      cursor: crosshair;
     }
 
     .fishing-stats-bar {
@@ -588,7 +602,7 @@
 
     .fishing-hud {
       background: #ffffff;
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--gold-border);
       padding: 3px 12px;
       border-radius: 20px;
       color: var(--text-main);
@@ -626,7 +640,6 @@
       transition: bottom 0.22s cubic-bezier(0.18, 0.89, 0.32, 1.28);
       cursor: pointer;
       user-select: none;
-      -webkit-user-drag: none;
     }
 
     .hole-character.up { bottom: 8px; }
@@ -695,7 +708,7 @@
       height: 130px;
       border-radius: 50%;
       object-fit: cover;
-      border: 4px solid rgba(212, 175, 55, 0.8);
+      border: 4px solid var(--gold-accent);
       box-shadow: 0 10px 25px rgba(0,0,0,0.18);
       transition: all 0.3s ease;
     }
@@ -761,7 +774,7 @@
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
-      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.1));
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.12));
       transition: all 0.35s ease;
       animation: popIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -773,7 +786,7 @@
 
     .makeover-status-text {
       font-size: 0.84rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--rose-dark);
       letter-spacing: 0.5px;
       margin-bottom: 8px;
@@ -788,9 +801,9 @@
     }
 
     .accessory-card {
-      background: #faf7f8;
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid var(--gold-border);
+      border-radius: 14px;
       padding: 6px 4px;
       cursor: pointer;
       display: flex;
@@ -817,7 +830,7 @@
     .accessory-card.active-step {
       border: 1.5px solid var(--rose-dark);
       background: #fffcfd;
-      box-shadow: 0 0 0 4px rgba(196, 139, 159, 0.15);
+      box-shadow: 0 0 0 4px rgba(196, 139, 159, 0.2);
     }
 
     .accessory-card.done {
@@ -838,7 +851,7 @@
       font-weight: bold;
     }
 
-    /* SCENE 15 (Celebration) */
+    /* SCENE CELEBRATION */
     .zoom-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -849,9 +862,9 @@
     }
 
     .zoom-card {
-      background: #faf7f8;
-      border: 1px solid var(--border-subtle);
-      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid var(--gold-border);
+      border-radius: 16px;
       padding: 8px 4px;
       display: flex;
       flex-direction: column;
@@ -860,62 +873,58 @@
 
     .zoom-card.couple-card {
       grid-column: span 3;
-      background: #faf7f8;
-      border: 1px solid rgba(212, 175, 55, 0.35);
+      background: rgba(255, 255, 255, 0.94);
+      border: 1.5px solid var(--gold-accent);
       flex-direction: row;
       justify-content: center;
       gap: 18px;
       padding: 10px;
     }
 
-    /* ================================================= */
-    /* SCENE 16: AISLE WALK OTOMATIS & INTENSIF 36 DETIK */
-    /* ================================================= */
+    /* =====================================================
+       CINEMATIC WEDDING AISLE (PERSPEKTIF KARPET AISLE)
+    ===================================================== */
     .aisle-walk-box {
       width: 100%;
       max-width: 710px;
-      margin: 6px auto;
+      margin: 4px auto;
       display: flex;
       flex-direction: column;
       align-items: center;
       position: relative;
     }
 
-    .aisle-track {
+    .cinematic-aisle {
       width: 100%;
-      height: 195px;
-      background: linear-gradient(180deg, #fdfbfb 0%, #f7eff3 100%);
-      border: 1px solid var(--border-subtle);
-      border-radius: 24px;
+      height: 380px;
       position: relative;
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      padding: 0 20px;
-      box-shadow: inset 0 2px 14px rgba(140, 76, 100, 0.06);
+      border-radius: 24px;
+      border: 1.5px solid var(--gold-border);
+      background: #f9f3ed;
+      perspective: 1200px;
+      box-shadow:
+        inset 0 0 40px rgba(132, 65, 88, 0.12),
+        0 12px 30px rgba(0, 0, 0, 0.12);
     }
 
-    .aisle-carpet {
-      position: absolute;
-      left: 15px;
-      right: 15px;
-      height: 42px;
-      background: linear-gradient(90deg, rgba(212, 175, 55, 0.22), rgba(196, 139, 159, 0.35), rgba(212, 175, 55, 0.28));
-      border-radius: 21px;
-      z-index: 1;
-      border: 1px dashed rgba(212, 175, 55, 0.6);
-    }
-
-    /* KELOPAK BUNGA SIMPLE, LEMBUT & ELEGAN */
-    .petal-container {
+    /* BACKGROUND AISLE */
+    .aisle-background {
       position: absolute;
       inset: 0;
-      pointer-events: none;
-      z-index: 3;
-      overflow: hidden;
+      background-image:
+        linear-gradient(
+          rgba(255, 248, 244, 0.05),
+          rgba(255, 248, 244, 0.05)
+        ),
+        url('poto/aisle-background.png');
+      background-size: cover;
+      background-position: center;
+      z-index: 1;
+      transition: transform 0.2s linear;
     }
 
-    .soft-petal {
+    .cinematic-aisle .soft-petal {
       position: absolute;
       width: 13px;
       height: 18px;
@@ -924,159 +933,202 @@
       opacity: 0.75;
       box-shadow: 0 2px 5px rgba(196, 139, 159, 0.15);
       animation: gentlePetalFall linear forwards;
+      z-index: 20;
     }
 
     @keyframes gentlePetalFall {
-      0% {
-        top: -15%;
-        transform: translateX(0) rotate(0deg) scale(0.9);
-        opacity: 0;
-      }
-      15% {
-        opacity: 0.85;
-      }
-      100% {
-        top: 110%;
-        transform: translateX(28px) rotate(140deg) scale(1);
-        opacity: 0;
-      }
+      0% { top: -15%; transform: translateX(0) rotate(0deg) scale(0.9); opacity: 0; }
+      15% { opacity: 0.85; }
+      100% { top: 110%; transform: translateX(28px) rotate(140deg) scale(1); opacity: 0; }
     }
 
-    .walking-trio-group {
+    /* MAS RIZKI DI ALTAR (TENGAH PELAMINAN 50%) */
+    .groom-at-altar {
       position: absolute;
-      left: 15px;
+      left: 50%;
+      top: 34%;
+      transform: translateX(-50%);
       z-index: 5;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 6px;
+      transition: all 0.5s ease;
     }
 
-    .walking-step {
-      animation: walkingBounce 0.45s infinite alternate ease-in-out;
+    .groom-at-altar img {
+      width: 44px;
+      height: 44px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #70d6ff;
+      background: white;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
     }
 
-    @keyframes walkingBounce {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-7px); }
+    .groom-at-altar span {
+      margin-top: 3px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: white;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
     }
 
-    .walker-card {
+    /* TRIO BERJALAN: RIANA - KAK YAYANG - DEA (LURUS DI JALUR 35%) */
+    .walking-trio {
+      position: absolute;
+      left: 35%;
+      bottom: 22px;
+      transform: translateX(-50%) scale(0.85);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 2px;
+      z-index: 10;
+      transform-origin: center bottom;
+      transition:
+        bottom 0.1s linear,
+        transform 0.1s linear;
+    }
+
+    .aisle-character {
       display: flex;
       flex-direction: column;
       align-items: center;
       position: relative;
+      transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease;
     }
 
-    .walker-card.bride-center {
-      margin-top: -6px;
+    .aisle-character img {
+      width: 54px;
+      height: 54px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2.5px solid white;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+      transition: all 0.3s ease;
     }
 
+    .bride-character {
+      z-index: 2;
+      margin: 0 -4px;
+    }
+
+    .bride-character img {
+      width: 76px;
+      height: 76px;
+      border: 3.5px solid var(--gold-accent);
+      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.45);
+    }
+
+    .escort-character {
+      z-index: 1;
+    }
+
+    .aisle-character span {
+      margin-top: 3px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: white;
+      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.9);
+      white-space: nowrap;
+    }
+
+    /* BUBBLE NANGIS HARU */
     .escort-cry-bubble {
       display: none;
       position: absolute;
       top: -30px;
-      background: #ffffff;
-      border: 1px solid var(--rose-accent);
-      padding: 2px 7px;
-      border-radius: 10px;
-      font-size: 0.65rem;
-      font-weight: 700;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1.5px solid var(--rose-accent);
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.68rem;
+      font-weight: 800;
       color: var(--rose-dark);
       white-space: nowrap;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-      animation: dialogPop 0.3s ease;
-      z-index: 20;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      animation: dialogPop 0.3s ease forwards;
+      z-index: 25;
     }
 
-    .walker-img {
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 5px 14px rgba(0,0,0,0.12);
-      border: 2px solid #ffffff;
-      background: #fff;
-      transition: all 0.3s ease;
-    }
-
-    .walker-img.escort {
-      width: 48px;
-      height: 48px;
-      border-color: rgba(196, 139, 159, 0.8);
-    }
-
-    .walker-img.bride {
-      width: 72px;
-      height: 72px;
-      border: 3.5px solid rgba(212, 175, 55, 0.95);
-      box-shadow: 0 6px 18px rgba(212, 175, 55, 0.4);
-    }
-
-    .walker-label {
-      font-size: 0.66rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      margin-top: 2px;
-      white-space: nowrap;
-    }
-
-    .walker-label.bride-label {
-      color: var(--rose-dark);
-      font-size: 0.74rem;
-    }
-
-    .waiting-groom-wrap {
+    /* FINAL COUPLE SETELAH BERTEMU DI PELAMINAN (50%) */
+    .final-couple {
       position: absolute;
-      right: 20px;
-      z-index: 4;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: all 0.3s ease;
-    }
-
-    .waiting-groom-wrap img {
-      width: 76px;
-      height: 76px;
-      border-radius: 50%;
-      border: 3px solid rgba(112, 214, 255, 0.9);
-      object-fit: cover;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-      background: #fff;
-    }
-
-    /* KONTENER KHUSUS PENGANTIN JALAN BERDUA SAMPAI HILANG */
-    .couple-walking-away {
-      position: absolute;
-      z-index: 6;
+      left: 50%;
+      top: 34%;
+      transform: translateX(-50%) scale(0.35);
       display: none;
-      align-items: center;
+      align-items: flex-end;
       gap: 6px;
-      pointer-events: none;
+      z-index: 11;
+      transform-origin: center bottom;
     }
 
-    .couple-walk-disappear {
-      display: flex !important;
-      animation: coupleWalkOff 5s cubic-bezier(0.3, 0, 0.2, 1) forwards;
+    .final-couple.active {
+      display: flex;
+      animation:
+        coupleApproach 4s
+        cubic-bezier(0.2, 0.8, 0.2, 1)
+        forwards;
     }
 
-    @keyframes coupleWalkOff {
+    @keyframes coupleApproach {
       0% {
-        transform: translateX(0);
-        opacity: 1;
-      }
-      80% {
-        opacity: 0.8;
+        transform: translateX(-50%) translateY(0) scale(0.35);
+        opacity: 0.9;
       }
       100% {
-        transform: translateX(250px);
-        opacity: 0;
+        transform: translateX(-50%) translateY(140px) scale(0.95);
+        opacity: 1;
       }
     }
 
-    /* Progress bar durasi jalan 36 detik */
+    /* ANIMASI MELANGKAH */
+    .walking {
+      animation: littleWalk 0.45s ease-in-out infinite alternate;
+    }
+
+    @keyframes littleWalk {
+      from { transform: translateY(0); }
+      to { transform: translateY(-7px); }
+    }
+
+    /* EFEK MUNDUR HARU RIANA & DEA (DIPERHALUS TIDAK TERLALU JAUH KE KIRI) */
+    .riana-step-back {
+      animation: rianaLeftAnim 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    @keyframes rianaLeftAnim {
+      0% { transform: translateX(0); opacity: 1; }
+      100% { transform: translateX(-24px) translateY(-4px) scale(0.9); opacity: 0.9; }
+    }
+
+    .dea-step-back {
+      animation: deaRightAnim 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    @keyframes deaRightAnim {
+      0% { transform: translateX(0); opacity: 1; }
+      100% { transform: translateX(24px) translateY(-4px) scale(0.9); opacity: 0.9; }
+    }
+
+    /* FOREGROUND BLUR */
+    .aisle-foreground {
+      position: absolute;
+      bottom: -40px;
+      width: 180px;
+      height: 140px;
+      background: radial-gradient(ellipse, rgba(120, 150, 90, 0.7), transparent 70%);
+      filter: blur(12px);
+      z-index: 15;
+      pointer-events: none;
+    }
+    .aisle-foreground.left { left: -50px; }
+    .aisle-foreground.right { right: -50px; }
+
+    /* TIMELINE BAR */
     .walk-timeline-bar-wrap {
       width: 100%;
       max-width: 520px;
-      margin-top: 14px;
+      margin-top: 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -1101,13 +1153,12 @@
     }
 
     .walk-timeline-text {
-      font-size: 0.74rem;
-      font-weight: 600;
+      font-size: 0.76rem;
+      font-weight: 700;
       letter-spacing: 0.5px;
       color: var(--rose-dark);
     }
 
-    /* MODAL POPUP GANTI LAGU */
     .song-modal-overlay {
       position: absolute;
       inset: 0;
@@ -1122,20 +1173,20 @@
     }
 
     .song-modal-box {
-      background: #ffffff;
-      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 24px;
       padding: 24px 22px;
       max-width: 380px;
       width: 90%;
       text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      border: 1px solid rgba(212, 175, 55, 0.4);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      border: 1.5px solid var(--gold-accent);
     }
 
     .song-modal-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.65rem;
-      font-weight: 600;
+      font-size: 1.7rem;
+      font-weight: 700;
       color: var(--rose-dark);
       margin-bottom: 6px;
     }
@@ -1152,8 +1203,8 @@
       font-weight: 600;
       font-size: 0.84rem;
       background: linear-gradient(135deg, var(--rose-accent), var(--rose-dark));
+      border: 1px solid var(--gold-accent);
       color: #ffffff;
-      border: none;
       padding: 10px 24px;
       border-radius: 22px;
       cursor: pointer;
@@ -1177,9 +1228,9 @@
       height: auto;
       max-height: 240px;
       object-fit: contain;
-      border-radius: 14px;
+      border-radius: 16px;
       border: 2px solid #ffffff;
-      box-shadow: 0 12px 30px rgba(212, 175, 55, 0.28);
+      box-shadow: 0 12px 30px rgba(212, 175, 55, 0.35);
       display: block;
       margin: 0 auto;
     }
@@ -1252,7 +1303,7 @@
       color: var(--text-main);
     }
 
-    /* Footer Navigation */
+    /* FOOTER NAV */
     .nav-bar {
       display: flex;
       justify-content: space-between;
@@ -1273,13 +1324,14 @@
       transition: all 0.25s ease;
     }
 
-    .btn-prev { background: #f0e9ed; color: var(--text-muted); }
+    .btn-prev { background: rgba(255, 255, 255, 0.85); border: 1px solid var(--border-subtle); color: var(--text-muted); }
     .btn-next {
-      background: var(--rose-accent);
+      background: linear-gradient(135deg, var(--rose-accent), var(--rose-dark));
+      border: 1px solid var(--gold-accent);
       color: #fff;
-      box-shadow: 0 4px 14px rgba(196, 139, 159, 0.35);
+      box-shadow: 0 4px 14px rgba(196, 139, 159, 0.4);
     }
-    .btn-next:hover { background: var(--rose-dark); transform: translateY(-1px); }
+    .btn-next:hover { transform: translateY(-1px); }
     .btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; box-shadow: none; }
   </style>
 </head>
@@ -1288,7 +1340,7 @@
   <div class="ambient-glow glow-1"></div>
   <div class="ambient-glow glow-2"></div>
 
-  <!-- PINTU MASUK -->
+  <!-- PINTU GERBANG EMAS KERAJAAN -->
   <div class="door-overlay" id="doorOverlay">
     <div class="door-panel door-left"></div>
     <div class="door-panel door-right"></div>
@@ -1308,12 +1360,11 @@
     </div>
   </div>
 
-  <!-- AUDIO 1: ABBA DANCING QUEEN -->
+  <!-- AUDIO TRACKS -->
   <audio id="bgMusic" loop preload="auto">
     <source src="abba-dancing-queen_abba-dancing-queen.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- AUDIO 2: BANDA NEIRA - SAMPAI JADI DEBU -->
   <audio id="aisleMusic" loop preload="auto">
     <source src="Sampai Jadi Debu - Banda Neira.mp3" type="audio/mpeg">
   </audio>
@@ -1322,7 +1373,7 @@
     ♪
   </button>
 
-  <div class="storybook-container">
+  <div class="storybook-container" id="storybookContainer">
     <div class="paper-flip-sheet" id="paperFlipSheet"></div>
 
     <div class="header-bar">
@@ -1385,7 +1436,7 @@
         </div>
 
         <p class="story-text" style="font-size: 0.85rem; margin-top: 4px;">
-          Nama yang random tapi penuh tawa, awal dari persahabatan yang nggak pernah kita sangka bakal sepanjang ini.
+          Nama yang random tapi penuh tawa, awal dari perjalanan bareng yang nggak pernah kita sangka bakal sepanjang ini.
         </p>
       </div>
 
@@ -1466,7 +1517,7 @@
         <h2 class="caption-title">Era Kejayaan “Kos Ungu”</h2>
         <p class="story-text" style="margin-bottom: 4px;">
           Di Malang, kita bertiga mutusin ngekos di tempat yang sama: <b>KOS UNGU!</b><br>
-          Di sinilah ikatan persahabatan kita jadi erat banget tanpa sekat.
+          Di sinilah cerita kita jadi makin seru tanpa sekat.
         </p>
 
         <div class="avatars-row" style="margin: 6px 0;">
@@ -1529,7 +1580,7 @@
           Sampai hari apes itu tiba: kita ketahuan piara kucing dan <b>dimarahin habis-habisan sama ibu kos!</b> Mocca dilarang masuk dan terpaksa ditaruh luar.
         </p>
 
-        <div class="aesthetic-card" style="background: #fdfbfb;">
+        <div class="aesthetic-card" style="background: rgba(255, 255, 255, 0.85);">
           <div class="avatars-row" style="gap: 12px;">
             <div class="avatar-item">
               <img src="poto/bride.png" class="poto-sticker poto-bride" style="width:52px; height:52px;">
@@ -1559,21 +1610,7 @@
         </div>
       </div>
 
-      <!-- SCENE 09: GAME MEMORY KOS UNGU -->
-      <div class="scene" data-chapter="Memory of Kos Ungu">
-        <h2 class="caption-title" style="margin-bottom: 2px;">Main Game dulu yuuu</h2>
-        <p class="story-text" style="font-size: 0.86rem; margin-bottom: 6px;">
-          Buka dan temukan 3 pasangan.
-        </p>
-
-        <div style="font-size:0.78rem; font-weight:600; letter-spacing: 1px; text-transform: uppercase; color: var(--rose-accent); margin-bottom: 6px;">
-          Tercocokkan: <span id="matchScore">0</span> / 3 Pasang
-        </div>
-
-        <div class="memory-grid" id="memoryGrid"></div>
-      </div>
-
-      <!-- SCENE 10: KAK YAYANG LULUS -->
+      <!-- SCENE 09: KAK YAYANG LULUS -->
       <div class="scene" data-chapter="Kos Ungu Terasa Asing">
         <h2 class="caption-title">Kos Ungu Jadi Asing...</h2>
         <p class="story-text">
@@ -1594,7 +1631,7 @@
         </div>
       </div>
 
-      <!-- SCENE 11: MERANTAU & TAKDIR BERBEDA -->
+      <!-- SCENE 10: MERANTAU & TAKDIR BERBEDA -->
       <div class="scene" data-chapter="Our Own Ways">
         <h2 class="caption-title">Tiga Kota, Tiga Takdir</h2>
         <p class="story-text" style="margin-bottom: 4px;">
@@ -1626,7 +1663,7 @@
         </p>
       </div>
 
-      <!-- SCENE 12: KETEMU JODOH GURU DOLOPO -->
+      <!-- SCENE 11: KETEMU JODOH GURU DOLOPO -->
       <div class="scene" data-chapter="Mas Rizki">
         <h2 class="caption-title">Jodoh di Tempat yang Sama</h2>
         <p class="story-text">
@@ -1639,7 +1676,7 @@
             <img src="poto/bride.png" class="poto-sticker poto-bride" style="width:82px; height:82px;">
             <span class="avatar-label" style="margin-top:4px;">Kak Yayang</span>
           </div>
-          <div style="font-family:'Cormorant Garamond', serif; font-size: 1.8rem; font-style: italic; color: var(--rose-accent);">&</div>
+          <div style="font-family:'Cormorant Garamond', serif; font-size: 1.8rem; font-style: italic; color: var(--gold-accent);">&</div>
           <div class="avatar-item">
             <img src="poto/groom.png" class="poto-sticker poto-groom" style="width:82px; height:82px;">
             <span class="avatar-label" style="margin-top:4px;">Mas Rizki</span>
@@ -1652,6 +1689,20 @@
         <p class="story-text" style="font-size: 0.86rem;">
           Kabar yang bikin kita berdua kaget, terharu, dan luar biasa bahagia!
         </p>
+      </div>
+
+      <!-- SCENE 12: MEMORY GAME -->
+      <div class="scene" data-chapter="Mini Game: Roll Call">
+        <h2 class="caption-title" style="margin-bottom: 2px;">Cek Fokus Dulu</h2>
+        <p class="story-text" style="font-size: 0.86rem; margin-bottom: 6px;">
+          Sebelum lanjut ke prosesi, yuk temukan 3 pasang kartu di bawah ini.
+        </p>
+
+        <div style="font-size:0.78rem; font-weight:700; letter-spacing: 1px; text-transform: uppercase; color: var(--rose-dark); margin-bottom: 6px;">
+          Tercocokkan: <span id="matchScore">0</span> / 3 Pasang
+        </div>
+
+        <div class="memory-grid" id="memoryGrid"></div>
       </div>
 
       <!-- SCENE 13: GAME MANCING MAS RIZKI + TRANSISI BERSIAP -->
@@ -1674,7 +1725,7 @@
 
           <div class="fishing-msg-toast" id="fishingToast">Siap-siap... pancing Mas Rizki-nya!</div>
 
-          <!-- Bagian Transisi Lucu: Mas Rizki Kiss & Makeover -->
+          <!-- Bagian Transisi: Mas Rizki Kiss & Makeover -->
           <div class="groom-prep-transition" id="groomPrepTransition">
             <div class="groom-bubble-dialog" id="groomDialog">
               “Aku siap-siap dulu yaa sayang!😘”
@@ -1737,10 +1788,10 @@
         <div class="zoom-grid">
           <div class="zoom-card couple-card">
             <div class="avatar-item">
-              <img src="makeover/makeover5.png" class="poto-sticker poto-bride" style="width:70px; height:70px; border-color:#ffd166;">
+              <img src="makeover/makeover5.png" class="poto-sticker poto-bride" style="width:70px; height:70px; border-color:var(--gold-accent);">
               <span class="avatar-label" style="margin-top:3px;">Kak Yayang</span>
             </div>
-            <div style="font-family:'Cormorant Garamond', serif; font-size: 1.5rem; font-style:italic; color: var(--rose-accent);">with</div>
+            <div style="font-family:'Cormorant Garamond', serif; font-size: 1.5rem; font-style:italic; color: var(--gold-accent);">with</div>
             <div class="avatar-item">
               <img src="makeover/groommakeover.png" class="poto-sticker poto-groom" style="width:70px; height:70px; border-color:#70d6ff;">
               <span class="avatar-label" style="margin-top:3px;">Mas Rizki</span>
@@ -1754,7 +1805,7 @@
             <img src="poto/dea.png" class="poto-sticker poto-dea" style="width:50px; height:50px;">
             <span class="avatar-label" style="font-size:0.75rem; margin-top:3px;">Dea</span>
           </div>
-          <div class="zoom-card" style="background:#fcf9fa;">
+          <div class="zoom-card" style="background:rgba(255, 255, 255, 0.9);">
             <img src="poto/mocca.png" class="poto-sticker poto-mocca" style="width:50px; height:50px;">
             <span class="avatar-label" style="font-size:0.75rem; margin-top:3px;">Mocca</span>
           </div>
@@ -1765,9 +1816,9 @@
         </p>
       </div>
 
-      <!-- SCENE 16: AISLE WALK OTOMATIS 36 DETIK -->
+      <!-- SCENE 16: AISLE WALK PERSPEKTIF 3D -->
       <div class="scene" data-chapter="The Wedding Aisle">
-        <!-- MODAL GANTI LAGU & MULAI JALAN -->
+        <!-- MODAL GANTI LAGU -->
         <div class="song-modal-overlay" id="songChangeModal">
           <div class="song-modal-box">
             <div style="font-size: 2rem; margin-bottom: 4px;"></div>
@@ -1786,65 +1837,73 @@
           Duduk santai dan hayati momen ini: <b>Riana & Dea</b> mendampingi langkah Kak Yayang menuju Mas Rizki.
         </p>
 
+        <!-- AISLE WALK BOX -->
         <div class="aisle-walk-box" id="aisleBox">
-          <div class="aisle-track" id="aisleTrack">
-            <!-- Hamburan Kelopak Bunga Simple & Elegan -->
+          <div class="cinematic-aisle" id="cinematicAisle">
+            
+            <!-- BACKGROUND AISLE -->
+            <div class="aisle-background"></div>
+
+            <!-- PETAL -->
             <div class="petal-container" id="petalContainer"></div>
 
-            <div class="aisle-carpet"></div>
-            
-            <!-- Trio Pengantar -->
-            <div class="walking-trio-group" id="walkingTrioGroup">
-              <div class="walker-card">
-                <span class="escort-cry-bubble" id="nanaCryBubble">Hiks</span>
-                <img id="escortNanaImg" src="poto/nana.png" class="walker-img escort" alt="Riana">
-                <span class="walker-label">Riana</span>
-              </div>
-
-              <div class="walker-card bride-center" id="brideWalkerCenter">
-                <img src="makeover/makeover5.png" class="walker-img bride" alt="Kak Yayang">
-                <span class="walker-label bride-label">Kak Yayang</span>
-              </div>
-
-              <div class="walker-card">
-                <span class="escort-cry-bubble" id="deaCryBubble">Hiks</span>
-                <img id="escortDeaImg" src="poto/dea.png" class="walker-img escort" alt="Dea">
-                <span class="walker-label">Dea</span>
-              </div>
-            </div>
-
-            <!-- Mas Rizki Menunggu -->
-            <div class="waiting-groom-wrap" id="waitingGroomWrap">
+            <!-- MAS RIZKI DI ALTAR (TENGAH PELAMINAN 50%) -->
+            <div class="groom-at-altar" id="groomAtAltar">
               <img src="makeover/groommakeover.png" alt="Mas Rizki">
-              <span style="font-size:0.75rem; font-weight:700; color:var(--text-muted); margin-top:3px;">Mas Rizki</span>
+              <span>Mas Rizki</span>
             </div>
 
-            <!-- Pasangan Pengantin Berjalan Berdua Menuju Pelaminan Hingga Hilang -->
-            <div class="couple-walking-away" id="coupleWalkingAway">
-              <div class="walker-card">
-                <img src="makeover/makeover5.png" class="walker-img bride" alt="Kak Yayang">
-                <span class="walker-label bride-label">Kak Yayang</span>
+            <!-- TRIO: RIANA (KIRI) - KAK YAYANG (TENGAH) - DEA (KANAN) -->
+            <div class="walking-trio" id="walkingTrio">
+              
+              <!-- Riana (Kiri) -->
+              <div class="aisle-character escort-character" id="rianaWalker">
+                <span class="escort-cry-bubble" id="nanaCryBubble">Hiks 🥹</span>
+                <img id="escortNanaImg" src="poto/nana.png" alt="Riana">
+                <span>Riana</span>
               </div>
-              <div class="walker-card">
-                <img src="makeover/groommakeover.png" class="walker-img" style="width:72px; height:72px; border: 3.5px solid rgba(112, 214, 255, 0.95);" alt="Mas Rizki">
-                <span class="walker-label" style="color: #0077b6;">Mas Rizki</span>
+
+              <!-- Kak Yayang (Tengah) -->
+              <div class="aisle-character bride-character" id="brideWalker">
+                <img src="makeover/makeover5.png" alt="Kak Yayang">
+                <span style="color:var(--gold-accent);">Kak Yayang</span>
+              </div>
+
+              <!-- Dea (Kanan) -->
+              <div class="aisle-character escort-character" id="deaWalker">
+                <span class="escort-cry-bubble" id="deaCryBubble">Hiks 🥹</span>
+                <img id="escortDeaImg" src="poto/dea.png" alt="Dea">
+                <span>Dea</span>
+              </div>
+
+            </div>
+
+            <!-- COUPLE SETELAH BERTEMU (DI PELAMINAN 50%) -->
+            <div class="final-couple" id="finalCouple">
+              <div class="aisle-character bride-character">
+                <img src="makeover/makeover5.png" alt="Kak Yayang">
+              </div>
+              <div class="aisle-character groom-character">
+                <img src="makeover/groommakeover.png" alt="Mas Rizki">
               </div>
             </div>
 
+            <!-- Dekorasi depan -->
+            <div class="aisle-foreground left"></div>
+            <div class="aisle-foreground right"></div>
           </div>
 
-          <!-- Progress Bar Perjalanan 36 Detik -->
           <div class="walk-timeline-bar-wrap">
             <div class="walk-timeline-track">
               <div class="walk-timeline-fill" id="walkTimelineFill"></div>
             </div>
             <div class="walk-timeline-text" id="walkTimelineText">
-              Melangkah perlahan diiringi lagu syahdu...
+              Melangkah perlahan menuju pelaminan...
             </div>
           </div>
         </div>
 
-        <!-- Tampilan Akhir di Pelaminan (Kembali Putar ABBA Dancing Queen) -->
+        <!-- TAMPILAN AKHIR (PELAMINAN) -->
         <div class="pelaminan-stage" id="pelaminanStage">
           <img src="makeover/bridegroom.png" class="pelaminan-photo" alt="Kak Yayang & Mas Rizki di Pelaminan">
           
@@ -1868,7 +1927,7 @@
             </div>
           </div>
 
-          <h3 style="font-family:'Cormorant Garamond', serif; font-size: 2.1rem; font-weight: 600; color: var(--rose-dark); margin-top: 4px;">
+          <h3 style="font-family:'Cormorant Garamond', serif; font-size: 2.1rem; font-weight: 700; color: var(--rose-dark); margin-top: 4px;">
             Happy Wedding, Kak Yayang & Mas Rizki!
           </h3>
           <p style="font-size: 0.86rem; color: var(--text-muted); max-width: 490px; line-height: 1.5; margin-top: 2px;">
@@ -1898,7 +1957,7 @@
     let currentScene = 0;
     let isFlipping = false;
 
-    /* AUDIO CONTROLLER (DUAL AUDIO) */
+    /* AUDIO CONTROLLER */
     const bgMusic = document.getElementById('bgMusic');
     const aisleMusic = document.getElementById('aisleMusic');
     const musicToggle = document.getElementById('musicToggle');
@@ -1927,9 +1986,11 @@
       toggleMusic();
     });
 
+    /* BUKA GERBANG MASUK */
     function openMagicDoor() {
       const doorOverlay = document.getElementById('doorOverlay');
       doorOverlay.classList.add('open');
+      document.body.classList.add('entered-palace');
       startMusic();
 
       confetti({
@@ -1941,10 +2002,10 @@
 
       setTimeout(() => {
         doorOverlay.style.display = 'none';
-      }, 1200);
+      }, 1800);
     }
 
-    /* GAME 1: MEMORY CARDS */
+    /* MINI GAME: MEMORY CARDS */
     const memoryData = [
       { id: 'mocca', name: 'Mocca', src: 'poto/mocca.png' },
       { id: 'mocca', name: 'Mocca', src: 'poto/mocca.png' },
@@ -2020,7 +2081,7 @@
       }
     }
 
-    /* SCENE 11: SCRATCH CARD */
+    /* SCENE 10 (SCRATCH CARD) */
     let isScratching = false;
 
     function initScratchCard() {
@@ -2043,8 +2104,8 @@
       ctx.fillText('GOSOK DI SINI', canvas.width / 2, canvas.height / 2 - 8);
       
       ctx.font = 'italic 12px Cormorant Garamond, serif';
-      ctx.fillStyle = '#c48b9f';
-      ctx.fillText('untuk melihat perjalanan kita sekarang', canvas.width / 2, canvas.height / 2 + 14);
+      ctx.fillStyle = '#d4af37';
+      ctx.fillText('untuk melihat kabar kita sekarang', canvas.width / 2, canvas.height / 2 + 14);
 
       function erase(e) {
         if (!isScratching) return;
@@ -2069,7 +2130,7 @@
       canvas.ontouchend = () => { isScratching = false; };
     }
 
-    /* LOGIKA GAME MANCING MAS RIZKI + TRANSISI MAKEOVER */
+    /* SCENE 13: GAME MANCING MAS RIZKI */
     let fishingGroomScore = 0;
     let fishingInterval = null;
     let isGroomSequenceComplete = false;
@@ -2222,7 +2283,7 @@
       }, 3900);
     }
 
-    /* GAME: BRIDAL MAKEOVER */
+    /* SCENE 14: BRIDAL MAKEOVER */
     let currentMakeoverStep = 1;
 
     const statusTexts = {
@@ -2271,9 +2332,9 @@
       }
     }
 
-    /* ================================================= */
-    /* SCENE 16: AISLE CINEMATIC AUTO-WALK (36 DETIK)    */
-    /* ================================================= */
+    /* ========================================================
+       SCENE 16: AISLE WALK FLOW
+       ======================================================== */
     let aisleCompleted = false;
     let petalInterval = null;
     let walkTimerInterval = null;
@@ -2284,26 +2345,46 @@
 
       document.getElementById('aisleBox').style.display = 'flex';
       document.getElementById('pelaminanStage').style.display = 'none';
-      
-      const trioGroup = document.getElementById('walkingTrioGroup');
-      trioGroup.style.display = 'flex';
-      trioGroup.style.left = '15px';
-      trioGroup.classList.remove('walking-step');
 
-      // Reset tampilan awal
+      const trio = document.getElementById('walkingTrio');
+      const riana = document.getElementById('rianaWalker');
+      const dea = document.getElementById('deaWalker');
+      const brideWalker = document.getElementById('brideWalker');
+      const finalCouple = document.getElementById('finalCouple');
+      const groomAtAltar = document.getElementById('groomAtAltar');
+      const background = document.querySelector('.aisle-background');
+
+      // Posisi awal tepat di 35%
+      trio.style.display = 'flex';
+      trio.style.left = '35%';
+      trio.style.bottom = '22px';
+      trio.style.transform = 'translateX(-50%) scale(0.85)';
+      trio.classList.remove('walking');
+
+      // Reset Riana & Dea
+      riana.classList.remove('riana-step-back');
+      dea.classList.remove('dea-step-back');
+      riana.style.opacity = '1';
+      dea.style.opacity = '1';
+      brideWalker.classList.remove('walking');
+      
       document.getElementById('escortNanaImg').src = 'poto/nana.png';
       document.getElementById('escortDeaImg').src = 'poto/dea.png';
       document.getElementById('nanaCryBubble').style.display = 'none';
       document.getElementById('deaCryBubble').style.display = 'none';
-      document.getElementById('brideWalkerCenter').style.display = 'flex';
-      document.getElementById('waitingGroomWrap').style.display = 'flex';
+      document.getElementById('nanaCryBubble').style.opacity = '1';
+      document.getElementById('deaCryBubble').style.opacity = '1';
 
-      const coupleWalking = document.getElementById('coupleWalkingAway');
-      coupleWalking.className = 'couple-walking-away';
-      coupleWalking.style.display = 'none';
+      finalCouple.classList.remove('active');
+      finalCouple.style.display = 'none';
+
+      groomAtAltar.style.display = 'flex';
+      groomAtAltar.style.opacity = '1';
+
+      background.style.transform = 'scale(1)';
 
       document.getElementById('walkTimelineFill').style.width = '0%';
-      document.getElementById('walkTimelineText').innerText = 'Melangkah perlahan diiringi lagu syahdu...';
+      document.getElementById('walkTimelineText').innerText = 'Melangkah perlahan menuju pelaminan...';
 
       document.getElementById('finaleTitle').innerText = 'Walking Down the Aisle';
       document.getElementById('finaleSubtitle').style.display = 'block';
@@ -2311,7 +2392,6 @@
       btnNext.disabled = true;
       btnNext.innerText = 'Menuju Pelaminan...';
 
-      // Munculkan modal untuk persetujuan ganti lagu & auto walk
       document.getElementById('songChangeModal').style.display = 'flex';
       createSoftPetals();
     }
@@ -2319,7 +2399,6 @@
     function startCinematicWalk() {
       document.getElementById('songChangeModal').style.display = 'none';
 
-      // 1. Putar lagu Banda Neira
       bgMusic.pause();
       currentAudioTrack = aisleMusic;
       currentAudioTrack.currentTime = 0;
@@ -2332,7 +2411,6 @@
         colors: ['#f9d8e2', '#f4b6c8', '#ffffff']
       });
 
-      // 2. Jalankan animasi otomatis berjalan tepat 36 detik
       runAisle36SecondsFlow();
     }
 
@@ -2340,69 +2418,117 @@
       const TOTAL_SECONDS = 36;
       let elapsed = 0;
 
-      const track = document.getElementById('aisleTrack');
-      const trioGroup = document.getElementById('walkingTrioGroup');
-      const maxTrioLeft = track.clientWidth - 280;
-      trioGroup.classList.add('walking-step');
-
+      const trio = document.getElementById('walkingTrio');
+      const riana = document.getElementById('rianaWalker');
+      const dea = document.getElementById('deaWalker');
+      const background = document.querySelector('.aisle-background');
+      const finalCouple = document.getElementById('finalCouple');
+      const groomAtAltar = document.getElementById('groomAtAltar');
       const fillBar = document.getElementById('walkTimelineFill');
       const timelineText = document.getElementById('walkTimelineText');
 
+      trio.classList.add('walking');
+
       walkTimerInterval = setInterval(() => {
-        elapsed += 0.2;
+        elapsed += 0.1;
         const progress = Math.min((elapsed / TOTAL_SECONDS) * 100, 100);
         fillBar.style.width = `${progress}%`;
 
-        // PHASE 1: Detik 0 s/d 26 -> Riana, Kak Yayang & Dea berjalan perlahan ke arah Mas Rizki
-        if (elapsed <= 26) {
-          const walkRatio = elapsed / 26;
-          const currentLeft = 15 + walkRatio * (maxTrioLeft - 15);
-          trioGroup.style.left = `${currentLeft}px`;
-          timelineText.innerText = `Riana & Dea mengiringi Kak Yayang melangkah`;
+        /* ===================================================
+           PHASE 1 (0 - 24 detik):
+           Riana, Kak Yayang, & Dea melangkah bersama di atas karpet
+           100% LURUS DI 35% SEPANJANG LORONG KARPET
+        =================================================== */
+        if (elapsed < 24) {
+          const p = elapsed / 24;
+          // Maju dari dasar karpet (22px) ke ujung jalan karpet (152px)
+          const bottom = 22 + (p * 130);
+          // Mengecil secara proporsional sesuai koridor karpet (0.85 ke 0.38)
+          const scale = 0.85 - (p * 0.47);
+
+          // Tetap lurus di 35%
+          trio.style.left = '35%';
+          trio.style.bottom = `${bottom}px`;
+          trio.style.transform = `translateX(-50%) scale(${scale})`;
+          background.style.transform = `scale(${1 + p * 0.08})`;
+
+          timelineText.innerText = 'Riana & Dea mengiringi Kak Yayang menyusuri jalan pelaminan...';
         }
 
-        // PHASE 2: Detik 26 -> Sampai di hadapan Mas Rizki, Riana & Dea berhenti & menangis haru
-        if (elapsed >= 26 && elapsed < 31) {
-          trioGroup.classList.remove('walking-step');
-          trioGroup.style.left = `${maxTrioLeft}px`;
+        /* ===================================================
+           PHASE 2 (24 - 27 detik):
+           Sampai di ujung karpet (35%):
+           Riana & Dea menangis haru lalu mundur sedikit ke samping
+        =================================================== */
+        else if (elapsed < 27) {
+          trio.classList.remove('walking');
+          trio.style.left = '35%'; // Tetap di ujung lorong 35%
+          trio.style.bottom = '152px';
+          trio.style.transform = 'translateX(-50%) scale(0.38)';
 
+          // Muka nangis & balon hiks
           document.getElementById('escortNanaImg').src = 'poto/nana_nangis.png';
           document.getElementById('escortDeaImg').src = 'poto/dea_nangis.png';
           document.getElementById('nanaCryBubble').style.display = 'block';
           document.getElementById('deaCryBubble').style.display = 'block';
 
-          timelineText.innerText = 'Riana & Dea melepas Kak Yayang dengan tangis haru bahagia...';
+          // Mundur sopan tidak terlalu jauh
+          riana.classList.add('riana-step-back');
+          dea.classList.add('dea-step-back');
+
+          timelineText.innerText = 'Riana & Dea melepas langkah Kak Yayang dengan tangis haru... 🥹';
         }
 
-        // PHASE 3: Detik 31 -> Kak Yayang & Mas Rizki bergandengan dan berjalan sendiri hingga hilang (selama 5 detik)
-        if (elapsed >= 31 && elapsed < 36) {
-          document.getElementById('brideWalkerCenter').style.display = 'none';
-          document.getElementById('waitingGroomWrap').style.display = 'none';
+        /* ===================================================
+           PHASE 3 (27 - 32 detik):
+           Kak Yayang melangkah manis dari ujung lorong (35%) 
+           menghampiri Mas Rizki di pelaminan (50%)
+        =================================================== */
+        else if (elapsed < 32) {
+          const p3 = (elapsed - 27) / 5; // 0 sampai 1
+          const currentLeft = 35 + (p3 * (50 - 35)); // Menyeberang lembut dari 35% ke 50%
+          const currentBottom = 152 + (p3 * 10);
 
-          const coupleWalking = document.getElementById('coupleWalkingAway');
-          if (!coupleWalking.classList.contains('couple-walk-disappear')) {
-            coupleWalking.style.left = `${maxTrioLeft + 52}px`;
-            coupleWalking.classList.add('couple-walk-disappear');
-          }
+          trio.style.left = `${currentLeft}%`;
+          trio.style.bottom = `${currentBottom}px`;
+          trio.style.transform = 'translateX(-50%) scale(0.38)';
 
-          timelineText.innerText = 'Kak Yayang melangkah bersama Mas Rizki menuju pelaminan...';
+          // Riana & Dea perlahan memudar melepas Kak Yayang
+          const escortOpacity = Math.max(0, 1 - (p3 * 1.6));
+          riana.style.opacity = escortOpacity;
+          dea.style.opacity = escortOpacity;
+          document.getElementById('nanaCryBubble').style.opacity = escortOpacity;
+          document.getElementById('deaCryBubble').style.opacity = escortOpacity;
+
+          document.getElementById('brideWalker').classList.add('walking');
+          timelineText.innerText = 'Kak Yayang melangkah menyambut Mas Rizki di pelaminan... 🤍';
         }
 
-        // PHASE 4: Tepat detik 36 -> Sampai di Pelaminan, Banda Neira berhenti, ABBA DANCING QUEEN kembali menyala meriah!
+        /* ===================================================
+           PHASE 4 (32 - 36 detik):
+           Mas Rizki & Kak Yayang bersanding di pelaminan (50%)
+        =================================================== */
+        else if (elapsed < 36) {
+          trio.style.display = 'none';
+          groomAtAltar.style.display = 'none';
+          finalCouple.classList.add('active'); // Bersanding tepat di 50%
+          timelineText.innerText = 'Akhirnya... mereka bersanding di pelaminan 💍✨';
+        }
+
+        /* ===================================================
+           FINISH (36 detik selesai): TAMPILAN FOTO PELAMINAN
+        =================================================== */
         if (elapsed >= TOTAL_SECONDS) {
           clearInterval(walkTimerInterval);
           aisleCompleted = true;
 
-          // Hentikan lagu Banda Neira
           aisleMusic.pause();
           aisleMusic.currentTime = 0;
 
-          // Putar kembali lagu Dancing Queen dari awal dengan meriah!
           currentAudioTrack = bgMusic;
           currentAudioTrack.currentTime = 0;
           startMusic();
 
-          // Tampilkan panggung pelaminan
           document.getElementById('aisleBox').style.display = 'none';
           document.getElementById('finaleSubtitle').style.display = 'none';
           document.getElementById('finaleTitle').innerText = 'The Wedding Day';
@@ -2413,7 +2539,7 @@
 
           celebrateGrandConfetti();
         }
-      }, 200);
+      }, 100);
     }
 
     function createSoftPetals() {
@@ -2472,15 +2598,20 @@
       pageCounter.innerText = `${idx + 1} / ${scenes.length}`;
       btnPrev.disabled = (idx === 0);
 
-      // Kembalikan audio ke Dancing Queen jika berpindah ke halaman lain
       if (idx !== 15 && currentAudioTrack !== bgMusic) {
         aisleMusic.pause();
         currentAudioTrack = bgMusic;
         startMusic();
       }
 
-      // Scene 09: Memory Game
-      if (idx === 8) {
+      // Scene 10 (Scratch Card)
+      if (idx === 9) {
+        btnNext.disabled = false;
+        btnNext.innerText = 'Lanjut';
+        setTimeout(initScratchCard, 100);
+      }
+      // Scene 12 (Memory Game)
+      else if (idx === 11) {
         if (matchedCount < 3) {
           btnNext.disabled = true;
           btnNext.innerText = 'Cocokkan Kartu';
@@ -2490,13 +2621,7 @@
           btnNext.innerText = 'Lanjut';
         }
       }
-      // Scene 11: Scratch Card
-      else if (idx === 10) {
-        btnNext.disabled = false;
-        btnNext.innerText = 'Lanjut';
-        setTimeout(initScratchCard, 100);
-      }
-      // Scene 13: Game Mancing Mas Rizki
+      // Scene 13 (Game Mancing Mas Rizki)
       else if (idx === 12) {
         if (!isGroomSequenceComplete) {
           btnNext.disabled = true;
@@ -2507,7 +2632,7 @@
           btnNext.innerText = 'Lanjut ke Kak Yayang';
         }
       }
-      // Scene 14: Makeover Game
+      // Scene 14 (Makeover Game)
       else if (idx === 13) {
         if (currentMakeoverStep < 5) {
           btnNext.disabled = true;
@@ -2518,7 +2643,7 @@
           btnNext.innerText = 'Ke Pelaminan';
         }
       }
-      // Scene 16: Grand Finale
+      // Scene 16 (Grand Finale)
       else if (idx === 15) {
         if (!aisleCompleted) {
           btnNext.disabled = true;
@@ -2532,8 +2657,8 @@
       // Scene Biasa
       else {
         btnNext.disabled = false;
-        if (idx === 7) btnNext.innerText = 'Buka Kenangan';
-        else if (idx === 11) btnNext.innerText = 'Mancing Mas Rizki!';
+        if (idx === 10) btnNext.innerText = 'Cek Fokus Dulu';
+        else if (idx === 11) btnNext.innerText = 'Pancing Mas Rizki!';
         else if (idx === 14) btnNext.innerText = 'Menuju Pelaminan';
         else btnNext.innerText = 'Lanjut';
       }
@@ -2555,7 +2680,6 @@
       }
     });
 
-    /* KEMBANG API & CONFETTI SUPER MERIAH */
     function celebrateGrandConfetti() {
       const duration = 5 * 1000;
       const animationEnd = Date.now() + duration;
